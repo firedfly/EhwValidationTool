@@ -27,6 +27,7 @@ namespace EhwValidationTool
 
         public string CpuzLocation { get; set; } = @"C:\Program Files\CPUID\CPU-Z\cpuz.exe";
         public string GpuzLocation { get; set; } = @"C:\Program Files (x86)\GPU-Z\gpu-z.exe";
+        public string ScreenshotFolder { get; set; } = @"%USERPROFILE%\Desktop\HWBOT Screenshots\";
         public string HwbotUserName { get; set; }
         public string HwbotTeamName { get; set; }
 

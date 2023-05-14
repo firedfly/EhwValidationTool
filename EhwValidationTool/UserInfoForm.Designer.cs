@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(UserInfoForm));
             this.lblUser = new System.Windows.Forms.Label();
             this.lblTeam = new System.Windows.Forms.Label();
             this.SuspendLayout();
@@ -62,6 +63,7 @@
             this.Controls.Add(this.lblTeam);
             this.Controls.Add(this.lblUser);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "UserInfoForm";
             this.ShowIcon = false;
             this.ShowInTaskbar = false;

@@ -62,6 +62,17 @@ namespace EhwValidationTool
             }
         }
 
+        private void btnScreenshotBrowse_Click(object sender, EventArgs e)
+        {
+            using (var openFile = new OpenFileDialog())
+            {
+                if (openFile.ShowDialog() == DialogResult.OK)
+                {
+                    this.txtScreenshotFolder.Text = openFile.FileName;
+                }
+            }
+        }
+
         private void btnSave_Click(object sender, EventArgs e)
         {
             if (!File.Exists(this.txtCpuzLocation.Text))

@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Data;
 using System.Diagnostics;
 using System.Drawing;
+using System.Drawing.Imaging;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
@@ -40,6 +41,37 @@ namespace EhwValidationTool
             });
             processes.Clear();
         }
+
+
+        private async Task TakeScreenshot()
+        {
+            string screenshotFilename = String.Empty;
+            using (var sfd = new SaveFileDialog())
+            {
+                sfd.DefaultExt = "jpg";
+                sfd.Filter = "JPG (*.jpg)|*.jpg";
+                sfd.InitialDirectory = Settings.Default.ScreenshotFolder;
+                if (sfd.ShowDialog() != DialogResult.OK)
+                    return;
+
+                screenshotFilename = sfd.FileName;
+            }
+
+            var originalState = this.WindowState;
+            this.WindowState = FormWindowState.Minimized;
+
+            await Task.Delay(250);
+            var bounds = Screen.PrimaryScreen.Bounds;
+            using(var bitmap = new Bitmap(bounds.Width, bounds.Height))
+            using(var graphics = Graphics.FromImage(bitmap))
+            {
+                graphics.CopyFromScreen(new Point(bounds.Left, bounds.Top), Point.Empty, bounds.Size);
+                bitmap.Save(screenshotFilename, ImageFormat.Jpeg);
+            }
+
+            this.WindowState = originalState;
+        }
+
 
         public void ShowUserInfoForm(int left, int top, int width)
         {
@@ -134,6 +166,11 @@ namespace EhwValidationTool
         private void btnCloseTools_Click(object sender, EventArgs e)
         {
             CloseTools();
+        }
+
+        private void btnTakeScreenshot_Click(object sender, EventArgs e)
+        {
+            TakeScreenshot();
         }
     }
 }

@@ -41,6 +41,9 @@
             this.txtHwbotUser = new System.Windows.Forms.TextBox();
             this.txtHwbotTeam = new System.Windows.Forms.TextBox();
             this.lblHwbotTeam = new System.Windows.Forms.Label();
+            this.txtScreenshotFolder = new System.Windows.Forms.TextBox();
+            this.lblScreenshot = new System.Windows.Forms.Label();
+            this.btnScreenshotBrowse = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // lblCpuz
@@ -63,17 +66,17 @@
             // 
             // txtCpuzLocation
             // 
-            this.txtCpuzLocation.Location = new System.Drawing.Point(111, 34);
+            this.txtCpuzLocation.Location = new System.Drawing.Point(120, 34);
             this.txtCpuzLocation.Name = "txtCpuzLocation";
-            this.txtCpuzLocation.Size = new System.Drawing.Size(342, 20);
+            this.txtCpuzLocation.Size = new System.Drawing.Size(333, 20);
             this.txtCpuzLocation.TabIndex = 1;
             this.txtCpuzLocation.TextChanged += new System.EventHandler(this.txtCpuzLocation_TextChanged);
             // 
             // txtGpuzLocation
             // 
-            this.txtGpuzLocation.Location = new System.Drawing.Point(111, 68);
+            this.txtGpuzLocation.Location = new System.Drawing.Point(120, 68);
             this.txtGpuzLocation.Name = "txtGpuzLocation";
-            this.txtGpuzLocation.Size = new System.Drawing.Size(342, 20);
+            this.txtGpuzLocation.Size = new System.Drawing.Size(333, 20);
             this.txtGpuzLocation.TabIndex = 3;
             this.txtGpuzLocation.TextChanged += new System.EventHandler(this.txtGpuzLocation_TextChanged);
             // 
@@ -100,7 +103,7 @@
             // btnSave
             // 
             this.btnSave.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnSave.Location = new System.Drawing.Point(484, 195);
+            this.btnSave.Location = new System.Drawing.Point(484, 214);
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new System.Drawing.Size(75, 23);
             this.btnSave.TabIndex = 0;
@@ -112,7 +115,7 @@
             // 
             this.btnCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.btnCancel.Location = new System.Drawing.Point(403, 195);
+            this.btnCancel.Location = new System.Drawing.Point(403, 214);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(75, 23);
             this.btnCancel.TabIndex = 7;
@@ -122,7 +125,7 @@
             // lblHwbotUser
             // 
             this.lblHwbotUser.AutoSize = true;
-            this.lblHwbotUser.Location = new System.Drawing.Point(21, 105);
+            this.lblHwbotUser.Location = new System.Drawing.Point(21, 139);
             this.lblHwbotUser.Name = "lblHwbotUser";
             this.lblHwbotUser.Size = new System.Drawing.Size(73, 13);
             this.lblHwbotUser.TabIndex = 8;
@@ -130,33 +133,62 @@
             // 
             // txtHwbotUser
             // 
-            this.txtHwbotUser.Location = new System.Drawing.Point(111, 102);
+            this.txtHwbotUser.Location = new System.Drawing.Point(120, 136);
             this.txtHwbotUser.Name = "txtHwbotUser";
-            this.txtHwbotUser.Size = new System.Drawing.Size(342, 20);
+            this.txtHwbotUser.Size = new System.Drawing.Size(333, 20);
             this.txtHwbotUser.TabIndex = 5;
             // 
             // txtHwbotTeam
             // 
-            this.txtHwbotTeam.Location = new System.Drawing.Point(111, 136);
+            this.txtHwbotTeam.Location = new System.Drawing.Point(120, 170);
             this.txtHwbotTeam.Name = "txtHwbotTeam";
-            this.txtHwbotTeam.Size = new System.Drawing.Size(342, 20);
+            this.txtHwbotTeam.Size = new System.Drawing.Size(333, 20);
             this.txtHwbotTeam.TabIndex = 6;
             // 
             // lblHwbotTeam
             // 
             this.lblHwbotTeam.AutoSize = true;
-            this.lblHwbotTeam.Location = new System.Drawing.Point(21, 139);
+            this.lblHwbotTeam.Location = new System.Drawing.Point(21, 173);
             this.lblHwbotTeam.Name = "lblHwbotTeam";
             this.lblHwbotTeam.Size = new System.Drawing.Size(78, 13);
             this.lblHwbotTeam.TabIndex = 10;
             this.lblHwbotTeam.Text = "HWBOT Team";
+            // 
+            // txtScreenshot
+            // 
+            this.txtScreenshotFolder.Location = new System.Drawing.Point(120, 102);
+            this.txtScreenshotFolder.Name = "txtScreenshot";
+            this.txtScreenshotFolder.Size = new System.Drawing.Size(333, 20);
+            this.txtScreenshotFolder.TabIndex = 11;
+            // 
+            // lblScreenshot
+            // 
+            this.lblScreenshot.AutoSize = true;
+            this.lblScreenshot.Location = new System.Drawing.Point(21, 105);
+            this.lblScreenshot.Name = "lblScreenshot";
+            this.lblScreenshot.Size = new System.Drawing.Size(93, 13);
+            this.lblScreenshot.TabIndex = 12;
+            this.lblScreenshot.Text = "Screenshot Folder";
+            // 
+            // btnScreenshotBrowse
+            // 
+            this.btnScreenshotBrowse.Location = new System.Drawing.Point(459, 100);
+            this.btnScreenshotBrowse.Name = "btnScreenshotBrowse";
+            this.btnScreenshotBrowse.Size = new System.Drawing.Size(75, 23);
+            this.btnScreenshotBrowse.TabIndex = 13;
+            this.btnScreenshotBrowse.Text = "Browse";
+            this.btnScreenshotBrowse.UseVisualStyleBackColor = true;
+            this.btnScreenshotBrowse.Click += new System.EventHandler(this.btnScreenshotBrowse_Click);
             // 
             // SettingsForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.btnCancel;
-            this.ClientSize = new System.Drawing.Size(571, 230);
+            this.ClientSize = new System.Drawing.Size(571, 249);
+            this.Controls.Add(this.btnScreenshotBrowse);
+            this.Controls.Add(this.lblScreenshot);
+            this.Controls.Add(this.txtScreenshotFolder);
             this.Controls.Add(this.txtHwbotTeam);
             this.Controls.Add(this.lblHwbotTeam);
             this.Controls.Add(this.txtHwbotUser);
@@ -191,5 +223,8 @@
         private System.Windows.Forms.TextBox txtHwbotUser;
         private System.Windows.Forms.TextBox txtHwbotTeam;
         private System.Windows.Forms.Label lblHwbotTeam;
+        private System.Windows.Forms.TextBox txtScreenshotFolder;
+        private System.Windows.Forms.Label lblScreenshot;
+        private System.Windows.Forms.Button btnScreenshotBrowse;
     }
 }

@@ -1,6 +1,7 @@
 {
   "CpuzLocation": "C:\\Program Files\\CPUID\\CPU-Z\\cpuz.exe",
   "GpuzLocation": "C:\\Program Files (x86)\\GPU-Z\\gpu-z.exe",
+  "ScreenshotFolder": "%USERPROFILE%\\Desktop\\HWBOT Screenshots\\",
   "HwbotUserName": "",
   "HwbotTeamName": ""
 }
