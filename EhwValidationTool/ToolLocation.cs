@@ -1,4 +1,4 @@
-﻿namespace BastiaansHwBotHelper
+﻿namespace EhwValidationTool
 {
     public enum ToolLocation
     {

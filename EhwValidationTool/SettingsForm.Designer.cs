@@ -1,4 +1,4 @@
-﻿namespace BastiaansHwBotHelper
+﻿namespace EhwValidationTool
 {
     partial class SettingsForm
     {
@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(SettingsForm));
             this.lblCpuz = new System.Windows.Forms.Label();
             this.lblGpuz = new System.Windows.Forms.Label();
             this.txtCpuzLocation = new System.Windows.Forms.TextBox();
@@ -168,6 +169,7 @@
             this.Controls.Add(this.txtCpuzLocation);
             this.Controls.Add(this.lblGpuz);
             this.Controls.Add(this.lblCpuz);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "SettingsForm";
             this.Text = "Settings";
             this.ResumeLayout(false);

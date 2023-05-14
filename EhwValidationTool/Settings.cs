@@ -1,7 +1,7 @@
 ﻿using Newtonsoft.Json;
 using System.IO;
 
-namespace BastiaansHwBotHelper
+namespace EhwValidationTool
 {
     public class Settings
     {

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace BastiaansHwBotHelper
+namespace EhwValidationTool
 {
     internal static class Program
     {
@@ -16,6 +16,8 @@ namespace BastiaansHwBotHelper
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
+
+            Application.ApplicationExit += (object sender, EventArgs e) => { MainForm.Instance.CloseTools(); };
             Application.Run(new MainForm());
         }
     }

@@ -9,7 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace BastiaansHwBotHelper
+namespace EhwValidationTool
 {
     public partial class SettingsForm : Form
     {

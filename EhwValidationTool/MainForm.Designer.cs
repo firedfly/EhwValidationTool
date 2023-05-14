@@ -1,4 +1,4 @@
-﻿namespace BastiaansHwBotHelper
+﻿namespace EhwValidationTool
 {
     partial class MainForm
     {
@@ -28,12 +28,14 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.btn3dLeft = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.btn2dLeft = new System.Windows.Forms.Button();
             this.btnSettings = new System.Windows.Forms.Button();
             this.btn2dRight = new System.Windows.Forms.Button();
             this.btn3dRight = new System.Windows.Forms.Button();
+            this.btnCloseTools = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // btn3dLeft
@@ -96,19 +98,32 @@
             this.btn3dRight.UseVisualStyleBackColor = true;
             this.btn3dRight.Click += new System.EventHandler(this.btn3dRight_Click);
             // 
-            // Form1
+            // btnCloseTools
+            // 
+            this.btnCloseTools.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.btnCloseTools.Location = new System.Drawing.Point(15, 151);
+            this.btnCloseTools.Name = "btnCloseTools";
+            this.btnCloseTools.Size = new System.Drawing.Size(180, 23);
+            this.btnCloseTools.TabIndex = 6;
+            this.btnCloseTools.Text = "Close Tools";
+            this.btnCloseTools.UseVisualStyleBackColor = true;
+            this.btnCloseTools.Click += new System.EventHandler(this.btnCloseTools_Click);
+            // 
+            // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(438, 186);
+            this.Controls.Add(this.btnCloseTools);
             this.Controls.Add(this.btn2dRight);
             this.Controls.Add(this.btn3dRight);
             this.Controls.Add(this.btnSettings);
             this.Controls.Add(this.btn2dLeft);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.btn3dLeft);
-            this.Name = "Form1";
-            this.Text = "Bastiaan_NL\'s HWBOT Helper";
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.Name = "MainForm";
+            this.Text = "EHW Validation Tool";
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -122,6 +137,7 @@
         private System.Windows.Forms.Button btnSettings;
         private System.Windows.Forms.Button btn2dRight;
         private System.Windows.Forms.Button btn3dRight;
+        private System.Windows.Forms.Button btnCloseTools;
     }
 }
 
