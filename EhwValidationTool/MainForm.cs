@@ -48,8 +48,9 @@ namespace EhwValidationTool
             string screenshotFilename = String.Empty;
             using (var sfd = new SaveFileDialog())
             {
+                sfd.AddExtension = true;
                 sfd.DefaultExt = "jpg";
-                sfd.Filter = "JPG (*.jpg)|*.jpg";
+                sfd.Filter = "JPG (*.jpg)|*.jpg|All Files (*.*)|*.*";
                 sfd.InitialDirectory = Settings.Default.ScreenshotFolder;
                 if (sfd.ShowDialog() != DialogResult.OK)
                     return;

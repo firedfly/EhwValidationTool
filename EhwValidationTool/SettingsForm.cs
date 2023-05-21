@@ -1,12 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace EhwValidationTool
@@ -42,7 +36,7 @@ namespace EhwValidationTool
         {
             using(var openFile = new OpenFileDialog())
             {
-                openFile.Filter = "CPU-Z | cpuz.exe";
+                openFile.Filter = "CPU-Z|cpuz.exe|All Files (*.*)|*.*";
                 if(openFile.ShowDialog() == DialogResult.OK)
                 {
                     this.txtCpuzLocation.Text = openFile.FileName;
@@ -54,21 +48,10 @@ namespace EhwValidationTool
         {
             using (var openFile = new OpenFileDialog())
             {
-                openFile.Filter = "GPU-Z | gpu-z.exe";
+                openFile.Filter = "GPU-Z|gpu-z*.exe|All Files (*.*)|*.*";
                 if (openFile.ShowDialog() == DialogResult.OK)
                 {
                     this.txtGpuzLocation.Text = openFile.FileName;
-                }
-            }
-        }
-
-        private void btnScreenshotBrowse_Click(object sender, EventArgs e)
-        {
-            using (var openFile = new OpenFileDialog())
-            {
-                if (openFile.ShowDialog() == DialogResult.OK)
-                {
-                    this.txtScreenshotFolder.Text = openFile.FileName;
                 }
             }
         }

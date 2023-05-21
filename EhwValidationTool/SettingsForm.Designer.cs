@@ -41,9 +41,6 @@
             this.txtHwbotUser = new System.Windows.Forms.TextBox();
             this.txtHwbotTeam = new System.Windows.Forms.TextBox();
             this.lblHwbotTeam = new System.Windows.Forms.Label();
-            this.txtScreenshotFolder = new System.Windows.Forms.TextBox();
-            this.lblScreenshot = new System.Windows.Forms.Label();
-            this.btnScreenshotBrowse = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // lblCpuz
@@ -125,7 +122,7 @@
             // lblHwbotUser
             // 
             this.lblHwbotUser.AutoSize = true;
-            this.lblHwbotUser.Location = new System.Drawing.Point(21, 139);
+            this.lblHwbotUser.Location = new System.Drawing.Point(21, 105);
             this.lblHwbotUser.Name = "lblHwbotUser";
             this.lblHwbotUser.Size = new System.Drawing.Size(73, 13);
             this.lblHwbotUser.TabIndex = 8;
@@ -133,14 +130,14 @@
             // 
             // txtHwbotUser
             // 
-            this.txtHwbotUser.Location = new System.Drawing.Point(120, 136);
+            this.txtHwbotUser.Location = new System.Drawing.Point(120, 102);
             this.txtHwbotUser.Name = "txtHwbotUser";
             this.txtHwbotUser.Size = new System.Drawing.Size(333, 20);
             this.txtHwbotUser.TabIndex = 5;
             // 
             // txtHwbotTeam
             // 
-            this.txtHwbotTeam.Location = new System.Drawing.Point(120, 170);
+            this.txtHwbotTeam.Location = new System.Drawing.Point(120, 136);
             this.txtHwbotTeam.Name = "txtHwbotTeam";
             this.txtHwbotTeam.Size = new System.Drawing.Size(333, 20);
             this.txtHwbotTeam.TabIndex = 6;
@@ -148,37 +145,11 @@
             // lblHwbotTeam
             // 
             this.lblHwbotTeam.AutoSize = true;
-            this.lblHwbotTeam.Location = new System.Drawing.Point(21, 173);
+            this.lblHwbotTeam.Location = new System.Drawing.Point(21, 139);
             this.lblHwbotTeam.Name = "lblHwbotTeam";
             this.lblHwbotTeam.Size = new System.Drawing.Size(78, 13);
             this.lblHwbotTeam.TabIndex = 10;
             this.lblHwbotTeam.Text = "HWBOT Team";
-            // 
-            // txtScreenshot
-            // 
-            this.txtScreenshotFolder.Location = new System.Drawing.Point(120, 102);
-            this.txtScreenshotFolder.Name = "txtScreenshot";
-            this.txtScreenshotFolder.Size = new System.Drawing.Size(333, 20);
-            this.txtScreenshotFolder.TabIndex = 11;
-            // 
-            // lblScreenshot
-            // 
-            this.lblScreenshot.AutoSize = true;
-            this.lblScreenshot.Location = new System.Drawing.Point(21, 105);
-            this.lblScreenshot.Name = "lblScreenshot";
-            this.lblScreenshot.Size = new System.Drawing.Size(93, 13);
-            this.lblScreenshot.TabIndex = 12;
-            this.lblScreenshot.Text = "Screenshot Folder";
-            // 
-            // btnScreenshotBrowse
-            // 
-            this.btnScreenshotBrowse.Location = new System.Drawing.Point(459, 100);
-            this.btnScreenshotBrowse.Name = "btnScreenshotBrowse";
-            this.btnScreenshotBrowse.Size = new System.Drawing.Size(75, 23);
-            this.btnScreenshotBrowse.TabIndex = 13;
-            this.btnScreenshotBrowse.Text = "Browse";
-            this.btnScreenshotBrowse.UseVisualStyleBackColor = true;
-            this.btnScreenshotBrowse.Click += new System.EventHandler(this.btnScreenshotBrowse_Click);
             // 
             // SettingsForm
             // 
@@ -186,9 +157,6 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.btnCancel;
             this.ClientSize = new System.Drawing.Size(571, 249);
-            this.Controls.Add(this.btnScreenshotBrowse);
-            this.Controls.Add(this.lblScreenshot);
-            this.Controls.Add(this.txtScreenshotFolder);
             this.Controls.Add(this.txtHwbotTeam);
             this.Controls.Add(this.lblHwbotTeam);
             this.Controls.Add(this.txtHwbotUser);
@@ -223,8 +191,5 @@
         private System.Windows.Forms.TextBox txtHwbotUser;
         private System.Windows.Forms.TextBox txtHwbotTeam;
         private System.Windows.Forms.Label lblHwbotTeam;
-        private System.Windows.Forms.TextBox txtScreenshotFolder;
-        private System.Windows.Forms.Label lblScreenshot;
-        private System.Windows.Forms.Button btnScreenshotBrowse;
     }
 }
