@@ -13,7 +13,6 @@ namespace EhwValidationTool
         public static async Task<Process> Launch(ToolType toolType, ToolLocation toolLocation, int instanceNumber = 1, bool displayUserInfoAboveWindow = false)
         {
             var toolPath = getToolPath(toolType);
-            var toolWindowTextSearchPattern = getToolWindowTextSearchPattern(toolType);
 
             var process = Process.Start(toolPath);
 
@@ -28,7 +27,7 @@ namespace EhwValidationTool
                 foreach (var window in windows)
                 {
                     var windowText = Win32Interop.GetWindowText(window);
-                    if(String.IsNullOrEmpty(windowText) || !windowText.Contains(toolWindowTextSearchPattern))
+                    if(!isMainToolWindow(toolType, windowText))
                         continue;
 
                     var rect = new Win32Interop.RECT();
@@ -98,6 +97,27 @@ namespace EhwValidationTool
             }
 
             return process;
+        }
+
+        private static bool isMainToolWindow(ToolType toolType, string windowText)
+        {
+            if(String.IsNullOrWhiteSpace(windowText))
+                return false;
+
+            if (toolType == ToolType.GpuZ)
+            {
+                if (windowText.Contains("GPU-Z"))
+                    return true;
+            }
+            else if(toolType == ToolType.CpuZ)
+            {
+                if (windowText.Contains("CPU-Z Update"))
+                    return false;
+                else if (windowText.Contains("CPU-Z"))
+                    return true;
+            }
+
+            return false;
         }
 
         private static string getToolWindowTextSearchPattern(ToolType toolType)
