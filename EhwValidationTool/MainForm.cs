@@ -49,6 +49,7 @@ namespace EhwValidationTool
             using (var sfd = new SaveFileDialog())
             {
                 sfd.AddExtension = true;
+                sfd.FileName = "validation.jpg";
                 sfd.DefaultExt = "jpg";
                 sfd.Filter = "JPG (*.jpg)|*.jpg|All Files (*.*)|*.*";
                 sfd.InitialDirectory = Settings.Default.ScreenshotFolder;
