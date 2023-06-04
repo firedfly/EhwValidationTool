@@ -20,8 +20,10 @@ namespace EhwValidationTool
 
         public void UpdateLabels()
         {
-            lblUser.Text = Settings.Default.HwbotUserName;
-            lblTeam.Text = Settings.Default.HwbotTeamName;
+            var userinfo = String.IsNullOrWhiteSpace(Settings.Default.HwbotTeamName) 
+                ? $"{Settings.Default.HwbotUserName}" 
+                : $"{Settings.Default.HwbotUserName} | {Settings.Default.HwbotTeamName}";
+            lblUserInfo.Text = userinfo;
         }
 
         protected override CreateParams CreateParams
