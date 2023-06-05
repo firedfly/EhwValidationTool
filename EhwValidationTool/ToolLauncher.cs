@@ -10,7 +10,7 @@ namespace EhwValidationTool
 {
     public static class ToolLauncher
     {
-        public static async Task<Process> Launch(ToolType toolType, ToolLocation toolLocation, int instanceNumber = 1, bool displayUserInfoAboveWindow = false)
+        public static async Task<Process> Launch(ToolType toolType, ToolLocation toolLocation, int instanceNumber = 1, bool displayUserInfoAboveWindow = false, int? selectTabIndex = null)
         {
             var toolPath = getToolPath(toolType);
 
@@ -91,6 +91,17 @@ namespace EhwValidationTool
 
                     var moved = Win32Interop.MoveWindow(window, x, y, width, height, true);
                     //Console.WriteLine($"[{DateTime.Now}] {toolType} ({process.Id}) Moved: {moved}");
+
+                    // select the specified tab
+                    if(selectTabIndex != null)
+                    {
+                        var tabHandle = Win32Interop.GetFirstTabControl(window);
+                        if (tabHandle != IntPtr.Zero)
+                        {
+                            Win32Interop.SelectTabByIndex(tabHandle, selectTabIndex.Value);
+                        }
+                    }
+
                     loop = false;
                     break;
                 }

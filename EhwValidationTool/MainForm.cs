@@ -112,9 +112,9 @@ namespace EhwValidationTool
             Task.Run(() =>
             {
                 var tasks = new List<Task<Process>>();
-                tasks.Add(ToolLauncher.Launch(ToolType.CpuZ, ToolLocation.BottomLeft, 1, true));
-                tasks.Add(ToolLauncher.Launch(ToolType.CpuZ, ToolLocation.BottomLeft, 2));
-                tasks.Add(ToolLauncher.Launch(ToolType.CpuZ, ToolLocation.BottomLeft, 3));
+                tasks.Add(ToolLauncher.Launch(ToolType.CpuZ, ToolLocation.BottomLeft, 1, true, selectTabIndex: 0));
+                tasks.Add(ToolLauncher.Launch(ToolType.CpuZ, ToolLocation.BottomLeft, 2, selectTabIndex: 1));
+                tasks.Add(ToolLauncher.Launch(ToolType.CpuZ, ToolLocation.BottomLeft, 3, selectTabIndex: 2));
 
             Task.WaitAll(tasks.ToArray());
             processes.AddRange(tasks.Select(x => x.Result));
@@ -126,9 +126,9 @@ namespace EhwValidationTool
             Task.Run(() =>
             {
                 var tasks = new List<Task<Process>>();
-                tasks.Add(ToolLauncher.Launch(ToolType.CpuZ, ToolLocation.BottomLeft, 1, true));
-                tasks.Add(ToolLauncher.Launch(ToolType.CpuZ, ToolLocation.BottomLeft, 2));
-                tasks.Add(ToolLauncher.Launch(ToolType.CpuZ, ToolLocation.BottomLeft, 3));
+                tasks.Add(ToolLauncher.Launch(ToolType.CpuZ, ToolLocation.BottomLeft, 1, true, selectTabIndex: 0));
+                tasks.Add(ToolLauncher.Launch(ToolType.CpuZ, ToolLocation.BottomLeft, 2, selectTabIndex: 1));
+                tasks.Add(ToolLauncher.Launch(ToolType.CpuZ, ToolLocation.BottomLeft, 3, selectTabIndex: 2));
                 tasks.Add(ToolLauncher.Launch(ToolType.GpuZ, ToolLocation.TopLeft));
 
                 Task.WaitAll(tasks.ToArray());
@@ -141,9 +141,9 @@ namespace EhwValidationTool
             Task.Run(() =>
             {
                 var tasks = new List<Task<Process>>();
-                tasks.Add(ToolLauncher.Launch(ToolType.CpuZ, ToolLocation.BottomRight, 1, true));
-                tasks.Add(ToolLauncher.Launch(ToolType.CpuZ, ToolLocation.BottomRight, 2));
-                tasks.Add(ToolLauncher.Launch(ToolType.CpuZ, ToolLocation.BottomRight, 3));
+                tasks.Add(ToolLauncher.Launch(ToolType.CpuZ, ToolLocation.BottomRight, 1, true, selectTabIndex: 2));
+                tasks.Add(ToolLauncher.Launch(ToolType.CpuZ, ToolLocation.BottomRight, 2, selectTabIndex: 1));
+                tasks.Add(ToolLauncher.Launch(ToolType.CpuZ, ToolLocation.BottomRight, 3, selectTabIndex: 0));
 
                 Task.WaitAll(tasks.ToArray());
                 processes.AddRange(tasks.Select(x => x.Result));
@@ -155,9 +155,9 @@ namespace EhwValidationTool
             Task.Run(() =>
             {
                 var tasks = new List<Task<Process>>();
-                tasks.Add(ToolLauncher.Launch(ToolType.CpuZ, ToolLocation.BottomRight, 1, true));
-                tasks.Add(ToolLauncher.Launch(ToolType.CpuZ, ToolLocation.BottomRight, 2));
-                tasks.Add(ToolLauncher.Launch(ToolType.CpuZ, ToolLocation.BottomRight, 3));
+                tasks.Add(ToolLauncher.Launch(ToolType.CpuZ, ToolLocation.BottomRight, 1, true, selectTabIndex: 2));
+                tasks.Add(ToolLauncher.Launch(ToolType.CpuZ, ToolLocation.BottomRight, 2, selectTabIndex: 1));
+                tasks.Add(ToolLauncher.Launch(ToolType.CpuZ, ToolLocation.BottomRight, 3, selectTabIndex: 0));
                 tasks.Add(ToolLauncher.Launch(ToolType.GpuZ, ToolLocation.TopRight));
 
                 Task.WaitAll(tasks.ToArray());

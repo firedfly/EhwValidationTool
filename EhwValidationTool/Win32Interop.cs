@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
 using static EhwValidationTool.MainForm;
@@ -130,5 +131,67 @@ namespace EhwValidationTool
 
         [DllImport("user32.dll", SetLastError = true)]
         public static extern uint GetWindowThreadProcessId(IntPtr hWnd, out uint lpdwProcessId);
+
+        [DllImport("user32.dll", ExactSpelling = true, CharSet = CharSet.Auto)]
+        public static extern IntPtr GetParent(IntPtr hWnd);
+
+
+        /// <summary>
+        /// Determines the depth of the specified window handle from the ancestor window handle.
+        /// </summary>
+        /// <param name="control"></param>
+        /// <param name="parent"></param>
+        /// <param name="currentDepth"></param>
+        /// <returns></returns>
+        public static int GetWindowDepth(IntPtr control, IntPtr parent, int currentDepth = 0)
+        {
+            if (control == parent)
+                return currentDepth;
+
+            return GetWindowDepth(GetParent(control), parent, currentDepth + 1);
+        }
+
+        public const UInt32 TCM_FIRST = 0x1300;
+        public const UInt32 TCM_SETCURFOCUS = (TCM_FIRST + 48);
+
+
+        [DllImport("user32.dll", EntryPoint = "SendMessage", CharSet = CharSet.Auto)]
+        public static extern bool SendMessage(IntPtr hWnd, uint Msg, int wParam, StringBuilder lParam);
+
+
+        [DllImport("user32.dll")]
+        static extern uint RealGetWindowClass(IntPtr hwnd, [Out] StringBuilder pszType,
+           uint cchType);
+
+
+        public static string RealGetWindowClassM(IntPtr hWnd)
+        {
+            StringBuilder pszType = new StringBuilder();
+            pszType.Capacity = 255;
+            RealGetWindowClass(hWnd, pszType, (UInt32)pszType.Capacity);
+            return pszType.ToString();
+        }
+
+        public static IntPtr GetFirstTabControl(IntPtr hwnd)
+        {
+            var windows = GetChildWindows(hwnd);
+            List<(IntPtr hwnd, int depthFromRootWindow)> tabList = new List<(IntPtr hwnd, int depthFromRootWindow)>();
+            IntPtr tabControl = default;
+            foreach (var window in windows)
+            {
+                var classNN = RealGetWindowClassM(window);
+                if (classNN.StartsWith("SysTabControl"))
+                {
+                    tabList.Add((window, GetWindowDepth(window, hwnd)));
+                }
+            }
+
+            return tabList.OrderBy(c => c.depthFromRootWindow).Select(c => c.hwnd).First();
+        }
+
+        public static void SelectTabByIndex(IntPtr tabControlHandle, int tabIndex)
+        {
+            SendMessage(tabControlHandle, TCM_SETCURFOCUS, tabIndex, null);
+        }
     }
 }

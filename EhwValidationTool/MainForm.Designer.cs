@@ -54,9 +54,9 @@
             this.label1.AutoSize = true;
             this.label1.Location = new System.Drawing.Point(12, 63);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(397, 13);
+            this.label1.Size = new System.Drawing.Size(313, 13);
             this.label1.TabIndex = 1;
-            this.label1.Text = "This helper will arrange CPU-Z and GPU-Z for screenshotting HWBOT submissions";
+            this.label1.Text = "This tool will arrange CPU-Z and GPU-Z for HWBOT submissions";
             // 
             // btn2dLeft
             // 
