@@ -176,7 +176,6 @@ namespace EhwValidationTool
         {
             var windows = GetChildWindows(hwnd);
             List<(IntPtr hwnd, int depthFromRootWindow)> tabList = new List<(IntPtr hwnd, int depthFromRootWindow)>();
-            IntPtr tabControl = default;
             foreach (var window in windows)
             {
                 var classNN = RealGetWindowClassM(window);

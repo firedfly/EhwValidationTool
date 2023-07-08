@@ -176,7 +176,7 @@ namespace EhwValidationTool
 
         private void btnTakeScreenshot_Click(object sender, EventArgs e)
         {
-            TakeScreenshot();
+            _ = TakeScreenshot();
         }
     }
 }
