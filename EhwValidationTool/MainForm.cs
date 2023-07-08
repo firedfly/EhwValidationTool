@@ -26,6 +26,10 @@ namespace EhwValidationTool
         {
             InitializeComponent();
             Instance = this;
+
+            Version version = default;
+            Version.TryParse(Application.ProductVersion, out version);
+            this.lblVersion.Text = version == default ? "" : $"Version: {version.Major}.{version.Minor}.{version.Build}";
         }
 
         public void CloseTools()

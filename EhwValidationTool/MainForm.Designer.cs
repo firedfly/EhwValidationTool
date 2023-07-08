@@ -37,6 +37,7 @@
             this.btn3dRight = new System.Windows.Forms.Button();
             this.btnCloseTools = new System.Windows.Forms.Button();
             this.btnTakeScreenshot = new System.Windows.Forms.Button();
+            this.lblVersion = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // btn3dLeft
@@ -121,11 +122,21 @@
             this.btnTakeScreenshot.UseVisualStyleBackColor = true;
             this.btnTakeScreenshot.Click += new System.EventHandler(this.btnTakeScreenshot_Click);
             // 
+            // lblVersion
+            // 
+            this.lblVersion.AutoSize = true;
+            this.lblVersion.Location = new System.Drawing.Point(12, 17);
+            this.lblVersion.Name = "lblVersion";
+            this.lblVersion.Size = new System.Drawing.Size(45, 13);
+            this.lblVersion.TabIndex = 8;
+            this.lblVersion.Text = "Version:";
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(446, 246);
+            this.Controls.Add(this.lblVersion);
             this.Controls.Add(this.btnTakeScreenshot);
             this.Controls.Add(this.btnCloseTools);
             this.Controls.Add(this.btn2dRight);
@@ -152,6 +163,7 @@
         private System.Windows.Forms.Button btn3dRight;
         private System.Windows.Forms.Button btnCloseTools;
         private System.Windows.Forms.Button btnTakeScreenshot;
+        private System.Windows.Forms.Label lblVersion;
     }
 }
 
