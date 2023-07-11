@@ -1,18 +1,46 @@
-﻿using System.Collections.Generic;
-using System.Diagnostics;
+﻿using System.Diagnostics;
 using System;
 using System.Threading.Tasks;
-using static EhwValidationTool.MainForm;
 using System.Windows.Forms;
-using System.IO;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace EhwValidationTool
 {
+
     public static class ToolLauncher
     {
-        public static async Task<Process> Launch(ToolType toolType, ToolLocation toolLocation, int instanceNumber = 1, bool displayUserInfoAboveWindow = false, int? selectTabIndex = null)
+        public static async Task<List<Process>> LaunchTools(List<ToolLaunchInfo> toolList, bool slowMode)
         {
-            var toolPath = getToolPath(toolType);
+            if (slowMode)
+            {
+                var tasks = new List<Process>();
+                foreach(ToolLaunchInfo launchInfo in toolList)
+                {
+                    var process = await Launch(launchInfo);
+                    tasks.Add(process);
+                }
+                return tasks;
+            }
+            else
+            {
+                return await Task.Run(() =>
+                {
+                    var tasks = new List<Task<Process>>();
+                    foreach (var launchInfo in toolList)
+                    {
+                        tasks.Add(Launch(launchInfo));
+
+                    }
+                    Task.WaitAll(tasks.ToArray());
+                    return tasks.Select(x => x.Result).ToList();
+                });
+            }
+        }
+
+        public static async Task<Process> Launch(ToolLaunchInfo launchInfo)
+        {
+            var toolPath = getToolPath(launchInfo.ToolType);
 
             var process = Process.Start(toolPath);
 
@@ -27,7 +55,7 @@ namespace EhwValidationTool
                 foreach (var window in windows)
                 {
                     var windowText = Win32Interop.GetWindowText(window);
-                    if(!isMainToolWindow(toolType, windowText))
+                    if(!isMainToolWindow(launchInfo.ToolType, windowText))
                         continue;
 
                     var rect = new Win32Interop.RECT();
@@ -36,69 +64,76 @@ namespace EhwValidationTool
                     var height = rect.bottom - rect.top;
                     
                     int x = 0, y = 0, userInfoLeft = 0, userInfoTop = 0;
-                    if(toolLocation == ToolLocation.TopLeft)
+                    if(launchInfo.ToolLocation == ToolLocation.TopLeft)
                     {
-                        x = width * (instanceNumber - 1);
+                        x = width * (launchInfo.InstanceNumber - 1);
                         y = 0;
 
-                        if (displayUserInfoAboveWindow)
+                        if (launchInfo.DisplayUserInfoAboveWindow)
                         {
                             userInfoLeft = x;
                             userInfoTop = height;
                         }
                     }
-                    else if(toolLocation == ToolLocation.TopRight)
+                    else if(launchInfo.ToolLocation == ToolLocation.TopRight)
                     {
-                        x = Screen.PrimaryScreen.WorkingArea.Width - (width * instanceNumber);
+                        x = Screen.PrimaryScreen.WorkingArea.Width - (width * launchInfo.InstanceNumber);
                         y = 0;
 
-                        if (displayUserInfoAboveWindow)
+                        if (launchInfo.DisplayUserInfoAboveWindow)
                         {
                             userInfoLeft = x;
                             userInfoTop = height;
                         }
                     }
-                    else if(toolLocation == ToolLocation.BottomLeft)
+                    else if(launchInfo.ToolLocation == ToolLocation.BottomLeft)
                     {
-                        x = width * (instanceNumber - 1);
+                        x = width * (launchInfo.InstanceNumber - 1);
                         y = Screen.PrimaryScreen.WorkingArea.Height - height;
 
-                        if (displayUserInfoAboveWindow)
+                        if (launchInfo.DisplayUserInfoAboveWindow)
                         {
                             userInfoLeft = x;
                             userInfoTop = y - MainForm.Instance.GetUserInfoFormHeight();
                         }
                     }
-                    else if(toolLocation == ToolLocation.BottomRight)
+                    else if(launchInfo.ToolLocation == ToolLocation.BottomRight)
                     {
-                        x = Screen.PrimaryScreen.WorkingArea.Width - (width * instanceNumber);
+                        x = Screen.PrimaryScreen.WorkingArea.Width - (width * launchInfo.InstanceNumber);
                         y = Screen.PrimaryScreen.WorkingArea.Height - height;
 
-                        if (displayUserInfoAboveWindow)
+                        if (launchInfo.DisplayUserInfoAboveWindow)
                         {
                             userInfoLeft = x;
                             userInfoTop = y - MainForm.Instance.GetUserInfoFormHeight();
                         }
                     }
 
-                    if (toolType == ToolType.GpuZ)
-                        await Task.Delay(2000);
-
-                    if (displayUserInfoAboveWindow)
+                    if (launchInfo.DisplayUserInfoAboveWindow)
                     {
                         MainForm.Instance.ShowUserInfoForm(userInfoLeft, userInfoTop, width);
                     }
 
-                    var moved = Win32Interop.MoveWindow(window, x, y, width, height, true);
+                    for(int i = 0; i < 100; i++)
+                    {
+                        var moved = Win32Interop.MoveWindow(window, x, y, width, height, true);
+                        await Task.Delay(500);
+
+
+                        Win32Interop.GetWindowRect(window, out rect);
+                        if (rect.left == x && rect.top == y)
+                            break;
+                    }
+
                     //Console.WriteLine($"[{DateTime.Now}] {toolType} ({process.Id}) Moved: {moved}");
 
                     // select the specified tab
-                    if(selectTabIndex != null)
+                    if(launchInfo.SelectTabIndex != null)
                     {
                         var tabHandle = Win32Interop.GetFirstTabControl(window);
                         if (tabHandle != IntPtr.Zero)
                         {
-                            Win32Interop.SelectTabByIndex(tabHandle, selectTabIndex.Value);
+                            Win32Interop.SelectTabByIndex(tabHandle, launchInfo.SelectTabIndex.Value);
                         }
                     }
 

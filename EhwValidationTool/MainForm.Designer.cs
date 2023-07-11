@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.btn3dLeft = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
@@ -38,11 +39,13 @@
             this.btnCloseTools = new System.Windows.Forms.Button();
             this.btnTakeScreenshot = new System.Windows.Forms.Button();
             this.lblVersion = new System.Windows.Forms.Label();
+            this.chkSlowMode = new System.Windows.Forms.CheckBox();
+            this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.SuspendLayout();
             // 
             // btn3dLeft
             // 
-            this.btn3dLeft.Location = new System.Drawing.Point(15, 129);
+            this.btn3dLeft.Location = new System.Drawing.Point(15, 141);
             this.btn3dLeft.Name = "btn3dLeft";
             this.btn3dLeft.Size = new System.Drawing.Size(180, 23);
             this.btn3dLeft.TabIndex = 0;
@@ -53,7 +56,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(12, 63);
+            this.label1.Location = new System.Drawing.Point(12, 57);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(313, 13);
             this.label1.TabIndex = 1;
@@ -61,7 +64,7 @@
             // 
             // btn2dLeft
             // 
-            this.btn2dLeft.Location = new System.Drawing.Point(15, 100);
+            this.btn2dLeft.Location = new System.Drawing.Point(15, 112);
             this.btn2dLeft.Name = "btn2dLeft";
             this.btn2dLeft.Size = new System.Drawing.Size(180, 23);
             this.btn2dLeft.TabIndex = 2;
@@ -82,7 +85,7 @@
             // 
             // btn2dRight
             // 
-            this.btn2dRight.Location = new System.Drawing.Point(246, 100);
+            this.btn2dRight.Location = new System.Drawing.Point(246, 112);
             this.btn2dRight.Name = "btn2dRight";
             this.btn2dRight.Size = new System.Drawing.Size(180, 23);
             this.btn2dRight.TabIndex = 5;
@@ -92,7 +95,7 @@
             // 
             // btn3dRight
             // 
-            this.btn3dRight.Location = new System.Drawing.Point(246, 129);
+            this.btn3dRight.Location = new System.Drawing.Point(246, 141);
             this.btn3dRight.Name = "btn3dRight";
             this.btn3dRight.Size = new System.Drawing.Size(180, 23);
             this.btn3dRight.TabIndex = 4;
@@ -131,11 +134,23 @@
             this.lblVersion.TabIndex = 8;
             this.lblVersion.Text = "Version:";
             // 
+            // chkSlowMode
+            // 
+            this.chkSlowMode.AutoSize = true;
+            this.chkSlowMode.Location = new System.Drawing.Point(15, 89);
+            this.chkSlowMode.Name = "chkSlowMode";
+            this.chkSlowMode.Size = new System.Drawing.Size(79, 17);
+            this.chkSlowMode.TabIndex = 9;
+            this.chkSlowMode.Text = "Slow Mode";
+            this.toolTip1.SetToolTip(this.chkSlowMode, "Opens tools one at a time.  Useful for single core systems");
+            this.chkSlowMode.UseVisualStyleBackColor = true;
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(446, 246);
+            this.Controls.Add(this.chkSlowMode);
             this.Controls.Add(this.lblVersion);
             this.Controls.Add(this.btnTakeScreenshot);
             this.Controls.Add(this.btnCloseTools);
@@ -164,6 +179,8 @@
         private System.Windows.Forms.Button btnCloseTools;
         private System.Windows.Forms.Button btnTakeScreenshot;
         private System.Windows.Forms.Label lblVersion;
+        private System.Windows.Forms.CheckBox chkSlowMode;
+        private System.Windows.Forms.ToolTip toolTip1;
     }
 }
 

@@ -46,7 +46,6 @@ namespace EhwValidationTool
             processes.Clear();
         }
 
-
         private async Task TakeScreenshot()
         {
             string screenshotFilename = String.Empty;
@@ -111,62 +110,58 @@ namespace EhwValidationTool
             }
         }
 
-        private void btn2dLeft_Click(object sender, EventArgs e)
+        private async void btn2dLeft_Click(object sender, EventArgs e)
         {
-            Task.Run(() =>
+            var tools = new List<ToolLaunchInfo>
             {
-                var tasks = new List<Task<Process>>();
-                tasks.Add(ToolLauncher.Launch(ToolType.CpuZ, ToolLocation.BottomLeft, 1, true, selectTabIndex: 0));
-                tasks.Add(ToolLauncher.Launch(ToolType.CpuZ, ToolLocation.BottomLeft, 2, selectTabIndex: 1));
-                tasks.Add(ToolLauncher.Launch(ToolType.CpuZ, ToolLocation.BottomLeft, 3, selectTabIndex: 2));
+                new ToolLaunchInfo { ToolType = ToolType.CpuZ, ToolLocation = ToolLocation.BottomLeft, InstanceNumber = 1, DisplayUserInfoAboveWindow = true, SelectTabIndex = 0 },
+                new ToolLaunchInfo { ToolType = ToolType.CpuZ, ToolLocation = ToolLocation.BottomLeft, InstanceNumber = 2, SelectTabIndex = 1 },
+                new ToolLaunchInfo { ToolType = ToolType.CpuZ, ToolLocation = ToolLocation.BottomLeft, InstanceNumber = 3, SelectTabIndex = 2 }
+            };
 
-            Task.WaitAll(tasks.ToArray());
-            processes.AddRange(tasks.Select(x => x.Result));
-        });
+            var launchedProcesses = await ToolLauncher.LaunchTools(tools, chkSlowMode.Checked);
+            processes.AddRange(launchedProcesses);
         }
 
-        private void btn3dLeft_Click(object sender, EventArgs e)
+        private async void btn3dLeft_Click(object sender, EventArgs e)
         {
-            Task.Run(() =>
+            var tools = new List<ToolLaunchInfo>
             {
-                var tasks = new List<Task<Process>>();
-                tasks.Add(ToolLauncher.Launch(ToolType.CpuZ, ToolLocation.BottomLeft, 1, true, selectTabIndex: 0));
-                tasks.Add(ToolLauncher.Launch(ToolType.CpuZ, ToolLocation.BottomLeft, 2, selectTabIndex: 1));
-                tasks.Add(ToolLauncher.Launch(ToolType.CpuZ, ToolLocation.BottomLeft, 3, selectTabIndex: 2));
-                tasks.Add(ToolLauncher.Launch(ToolType.GpuZ, ToolLocation.TopLeft));
+                new ToolLaunchInfo { ToolType = ToolType.CpuZ, ToolLocation = ToolLocation.BottomLeft, InstanceNumber = 1, DisplayUserInfoAboveWindow = true, SelectTabIndex = 0 },
+                new ToolLaunchInfo { ToolType = ToolType.CpuZ, ToolLocation = ToolLocation.BottomLeft, InstanceNumber = 2, SelectTabIndex = 1 },
+                new ToolLaunchInfo { ToolType = ToolType.CpuZ, ToolLocation = ToolLocation.BottomLeft, InstanceNumber = 3, SelectTabIndex = 2 },
+                new ToolLaunchInfo { ToolType = ToolType.GpuZ, ToolLocation = ToolLocation.TopLeft}
+            };
 
-                Task.WaitAll(tasks.ToArray());
-                processes.AddRange(tasks.Select(x => x.Result));
-            });
+            var launchedProcesses = await ToolLauncher.LaunchTools(tools, chkSlowMode.Checked);
+            processes.AddRange(launchedProcesses);
         }
 
-        private void btn2dRight_Click(object sender, EventArgs e)
+        private async void btn2dRight_Click(object sender, EventArgs e)
         {
-            Task.Run(() =>
+            var tools = new List<ToolLaunchInfo>
             {
-                var tasks = new List<Task<Process>>();
-                tasks.Add(ToolLauncher.Launch(ToolType.CpuZ, ToolLocation.BottomRight, 1, true, selectTabIndex: 2));
-                tasks.Add(ToolLauncher.Launch(ToolType.CpuZ, ToolLocation.BottomRight, 2, selectTabIndex: 1));
-                tasks.Add(ToolLauncher.Launch(ToolType.CpuZ, ToolLocation.BottomRight, 3, selectTabIndex: 0));
+                new ToolLaunchInfo { ToolType = ToolType.CpuZ, ToolLocation = ToolLocation.BottomRight, InstanceNumber = 1, DisplayUserInfoAboveWindow = true, SelectTabIndex = 2 },
+                new ToolLaunchInfo { ToolType = ToolType.CpuZ, ToolLocation = ToolLocation.BottomRight, InstanceNumber = 2, SelectTabIndex = 1 },
+                new ToolLaunchInfo { ToolType = ToolType.CpuZ, ToolLocation = ToolLocation.BottomRight, InstanceNumber = 3, SelectTabIndex = 0 }
+            };
 
-                Task.WaitAll(tasks.ToArray());
-                processes.AddRange(tasks.Select(x => x.Result));
-            });
+            var launchedProcesses = await ToolLauncher.LaunchTools(tools, chkSlowMode.Checked);
+            processes.AddRange(launchedProcesses);
         }
 
-        private void btn3dRight_Click(object sender, EventArgs e)
+        private async void btn3dRight_Click(object sender, EventArgs e)
         {
-            Task.Run(() =>
+            var tools = new List<ToolLaunchInfo>
             {
-                var tasks = new List<Task<Process>>();
-                tasks.Add(ToolLauncher.Launch(ToolType.CpuZ, ToolLocation.BottomRight, 1, true, selectTabIndex: 2));
-                tasks.Add(ToolLauncher.Launch(ToolType.CpuZ, ToolLocation.BottomRight, 2, selectTabIndex: 1));
-                tasks.Add(ToolLauncher.Launch(ToolType.CpuZ, ToolLocation.BottomRight, 3, selectTabIndex: 0));
-                tasks.Add(ToolLauncher.Launch(ToolType.GpuZ, ToolLocation.TopRight));
+                new ToolLaunchInfo { ToolType = ToolType.CpuZ, ToolLocation = ToolLocation.BottomRight, InstanceNumber = 1, DisplayUserInfoAboveWindow = true, SelectTabIndex = 2 },
+                new ToolLaunchInfo { ToolType = ToolType.CpuZ, ToolLocation = ToolLocation.BottomRight, InstanceNumber = 2, SelectTabIndex = 1 },
+                new ToolLaunchInfo { ToolType = ToolType.CpuZ, ToolLocation = ToolLocation.BottomRight, InstanceNumber = 3, SelectTabIndex = 0 },
+                new ToolLaunchInfo { ToolType = ToolType.GpuZ, ToolLocation = ToolLocation.TopRight }
+            };
 
-                Task.WaitAll(tasks.ToArray());
-                processes.AddRange(tasks.Select(x => x.Result));
-            });
+            var launchedProcesses = await ToolLauncher.LaunchTools(tools, chkSlowMode.Checked);
+            processes.AddRange(launchedProcesses);
         }
 
         private void btnCloseTools_Click(object sender, EventArgs e)
