@@ -40,7 +40,7 @@ namespace EhwValidationTool
 
         public static async Task<Process> Launch(ToolLaunchInfo launchInfo)
         {
-            var toolPath = getToolPath(launchInfo.ToolType);
+            var toolPath = GetToolPath(launchInfo.ToolType);
 
             var process = Process.Start(toolPath);
 
@@ -176,7 +176,7 @@ namespace EhwValidationTool
             }
         }
 
-        private static string getToolPath(ToolType toolType)
+        public static string GetToolPath(ToolType toolType)
         {
             switch (toolType)
             {

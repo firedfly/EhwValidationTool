@@ -5,6 +5,7 @@ using System.Data;
 using System.Diagnostics;
 using System.Drawing;
 using System.Drawing.Imaging;
+using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
@@ -77,6 +78,14 @@ namespace EhwValidationTool
             this.WindowState = originalState;
         }
 
+        private bool ensureToolExists(ToolType toolType)
+        {
+            var exists = File.Exists(ToolLauncher.GetToolPath(toolType));
+            if (!exists)
+                MessageBox.Show($"{toolType} not found.  Update the settings with the correct path.");
+            return exists;
+        }
+
 
         public void ShowUserInfoForm(int left, int top, int width)
         {
@@ -112,6 +121,9 @@ namespace EhwValidationTool
 
         private async void btn2dLeft_Click(object sender, EventArgs e)
         {
+            if (!ensureToolExists(ToolType.CpuZ))
+                return;
+
             var tools = new List<ToolLaunchInfo>
             {
                 new ToolLaunchInfo { ToolType = ToolType.CpuZ, ToolLocation = ToolLocation.BottomLeft, InstanceNumber = 1, DisplayUserInfoAboveWindow = true, SelectTabIndex = 0 },
@@ -125,6 +137,11 @@ namespace EhwValidationTool
 
         private async void btn3dLeft_Click(object sender, EventArgs e)
         {
+            if (!ensureToolExists(ToolType.CpuZ))
+                return;
+            if (!ensureToolExists(ToolType.GpuZ))
+                return;
+
             var tools = new List<ToolLaunchInfo>
             {
                 new ToolLaunchInfo { ToolType = ToolType.CpuZ, ToolLocation = ToolLocation.BottomLeft, InstanceNumber = 1, DisplayUserInfoAboveWindow = true, SelectTabIndex = 0 },
@@ -139,6 +156,9 @@ namespace EhwValidationTool
 
         private async void btn2dRight_Click(object sender, EventArgs e)
         {
+            if (!ensureToolExists(ToolType.CpuZ))
+                return;
+
             var tools = new List<ToolLaunchInfo>
             {
                 new ToolLaunchInfo { ToolType = ToolType.CpuZ, ToolLocation = ToolLocation.BottomRight, InstanceNumber = 1, DisplayUserInfoAboveWindow = true, SelectTabIndex = 2 },
@@ -152,6 +172,11 @@ namespace EhwValidationTool
 
         private async void btn3dRight_Click(object sender, EventArgs e)
         {
+            if (!ensureToolExists(ToolType.CpuZ))
+                return;
+            if (!ensureToolExists(ToolType.GpuZ))
+                return;
+
             var tools = new List<ToolLaunchInfo>
             {
                 new ToolLaunchInfo { ToolType = ToolType.CpuZ, ToolLocation = ToolLocation.BottomRight, InstanceNumber = 1, DisplayUserInfoAboveWindow = true, SelectTabIndex = 2 },

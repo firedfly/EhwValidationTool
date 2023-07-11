@@ -58,17 +58,6 @@ namespace EhwValidationTool
 
         private void btnSave_Click(object sender, EventArgs e)
         {
-            if (!File.Exists(this.txtCpuzLocation.Text))
-            {
-                MessageBox.Show("CPU-Z not found at specified location");
-                return;
-            }
-            if (!File.Exists(this.txtGpuzLocation.Text))
-            {
-                MessageBox.Show("GPU-Z not found at specified location");
-                return;
-            }
-
             Settings.Default.CpuzLocation = this.txtCpuzLocation.Text;
             Settings.Default.GpuzLocation = this.txtGpuzLocation.Text;
             Settings.Default.HwbotUserName = this.txtHwbotUser.Text;
