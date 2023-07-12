@@ -24,7 +24,7 @@ namespace EhwValidationTool
             }
             else
             {
-                return await Task.Run(() =>
+                return await TaskEx.Run(() =>
                 {
                     var tasks = new List<Task<Process>>();
                     foreach (var launchInfo in toolList)
@@ -47,7 +47,7 @@ namespace EhwValidationTool
             bool loop = true;
             while (loop)
             {
-                await Task.Delay(250);
+                await TaskEx.Delay(250);
 
                 var windows = Win32Interop.GetRootWindowsOfProcess(process.Id);
 
@@ -117,7 +117,7 @@ namespace EhwValidationTool
                     for(int i = 0; i < 100; i++)
                     {
                         var moved = Win32Interop.MoveWindow(window, x, y, width, height, true);
-                        await Task.Delay(500);
+                        await TaskEx.Delay(500);
 
 
                         Win32Interop.GetWindowRect(window, out rect);
