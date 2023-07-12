@@ -66,7 +66,7 @@ namespace EhwValidationTool
             var originalState = this.WindowState;
             this.WindowState = FormWindowState.Minimized;
 
-            await Task.Delay(250);
+            await TaskEx.Delay(250);
             var bounds = Screen.PrimaryScreen.Bounds;
             using(var bitmap = new Bitmap(bounds.Width, bounds.Height))
             using(var graphics = Graphics.FromImage(bitmap))
