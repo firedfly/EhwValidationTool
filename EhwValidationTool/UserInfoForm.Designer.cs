@@ -42,6 +42,7 @@
             this.lblUserInfo.Size = new System.Drawing.Size(96, 20);
             this.lblUserInfo.TabIndex = 0;
             this.lblUserInfo.Text = "User | Team";
+            this.lblUserInfo.MouseDown += new System.Windows.Forms.MouseEventHandler(this.Form_MouseDown);
             // 
             // lblValidation
             // 
@@ -52,6 +53,7 @@
             this.lblValidation.Size = new System.Drawing.Size(278, 13);
             this.lblValidation.TabIndex = 1;
             this.lblValidation.Text = "Validation Image created by ExtremeHW\'s Validation Tool";
+            this.lblValidation.MouseDown += new System.Windows.Forms.MouseEventHandler(this.Form_MouseDown);
             // 
             // UserInfoForm
             // 
@@ -70,6 +72,7 @@
             this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Hide;
             this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
             this.Text = "UserInfoForm";
+            this.MouseDown += new System.Windows.Forms.MouseEventHandler(this.Form_MouseDown);
             this.ResumeLayout(false);
             this.PerformLayout();
 

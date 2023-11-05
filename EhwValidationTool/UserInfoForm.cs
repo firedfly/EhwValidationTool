@@ -1,11 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace EhwValidationTool
@@ -34,6 +27,15 @@ namespace EhwValidationTool
                 var Params = base.CreateParams;
                 Params.ExStyle |= WS_EX_TOOLWINDOW;
                 return Params;
+            }
+        }
+
+        private void Form_MouseDown(object sender, System.Windows.Forms.MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Left)
+            {
+                Win32Interop.ReleaseCapture();
+                Win32Interop.SendMessage(Handle, Win32Interop.WM_NCLBUTTONDOWN, Win32Interop.HT_CAPTION, 0);
             }
         }
     }
