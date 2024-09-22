@@ -30,6 +30,7 @@ namespace EhwValidationTool
         public string ScreenshotFolder { get; set; } = @"%USERPROFILE%\Desktop\HWBOT Screenshots\";
         public string HwbotUserName { get; set; }
         public string HwbotTeamName { get; set; }
+        public bool EnableSlowMode { get;set; }
 
         public bool Validate()
         {

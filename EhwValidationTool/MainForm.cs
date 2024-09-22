@@ -31,6 +31,9 @@ namespace EhwValidationTool
             Version version = default;
             Version.TryParse(Application.ProductVersion, out version);
             this.lblVersion.Text = version == default ? "" : $"Version: {version.Major}.{version.Minor}.{version.Build}";
+
+            this.chkSlowMode.Checked = Settings.Default.EnableSlowMode;
+            this.chkSlowMode.CheckedChanged += chkSlowMode_CheckedChanged;
         }
 
         public void CloseTools()
@@ -197,6 +200,13 @@ namespace EhwValidationTool
         private void btnTakeScreenshot_Click(object sender, EventArgs e)
         {
             _ = TakeScreenshot();
+        }
+
+
+        private void chkSlowMode_CheckedChanged(object sender, EventArgs e)
+        {
+            Settings.Default.EnableSlowMode = chkSlowMode.Checked;
+            Settings.SaveSettings();
         }
     }
 }
