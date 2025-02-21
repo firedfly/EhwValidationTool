@@ -134,6 +134,14 @@ namespace EhwValidationTool
                         if (tabHandle != IntPtr.Zero)
                         {
                             Win32Interop.SelectTabByIndex(tabHandle, launchInfo.SelectTabIndex.Value);
+
+                            var cpuzLaunchInfo = launchInfo as CpuzLaunchInfo;
+                            if (cpuzLaunchInfo != null && cpuzLaunchInfo.TabType == CpuzLaunchInfo.CpuzTabType.SPD && cpuzLaunchInfo.SpdSlot.HasValue)
+                            {
+                                var tabPageHwnd = Win32Interop.GetTabHwndByIndex(tabHandle, launchInfo.SelectTabIndex.Value);
+                                var comboboxHwnd = Win32Interop.GetFirstComboBoxControl(tabPageHwnd);
+                                Win32Interop.SelectComboBoxValueByIndex(comboboxHwnd, cpuzLaunchInfo.SpdSlot.Value-1);
+                            }
                         }
                     }
 

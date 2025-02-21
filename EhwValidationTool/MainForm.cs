@@ -34,6 +34,9 @@ namespace EhwValidationTool
 
             this.chkSlowMode.Checked = Settings.Default.EnableSlowMode;
             this.chkSlowMode.CheckedChanged += chkSlowMode_CheckedChanged;
+
+            this.chkShowSpdTabs.Checked = Settings.Default.EnableSpdTabs;
+            this.chkShowSpdTabs.CheckedChanged += chkShowSpdTabs_CheckedChanged;
         }
 
         public void CloseTools()
@@ -129,10 +132,15 @@ namespace EhwValidationTool
 
             var tools = new List<ToolLaunchInfo>
             {
-                new ToolLaunchInfo { ToolType = ToolType.CpuZ, ToolLocation = ToolLocation.BottomLeft, InstanceNumber = 1, DisplayUserInfoAboveWindow = true, SelectTabIndex = 0 },
-                new ToolLaunchInfo { ToolType = ToolType.CpuZ, ToolLocation = ToolLocation.BottomLeft, InstanceNumber = 2, SelectTabIndex = 1 },
-                new ToolLaunchInfo { ToolType = ToolType.CpuZ, ToolLocation = ToolLocation.BottomLeft, InstanceNumber = 3, SelectTabIndex = 2 }
+                new CpuzLaunchInfo { ToolLocation = ToolLocation.BottomLeft, InstanceNumber = 1, DisplayUserInfoAboveWindow = true, TabType = CpuzLaunchInfo.CpuzTabType.CPU },
+                new CpuzLaunchInfo { ToolLocation = ToolLocation.BottomLeft, InstanceNumber = 2, TabType = CpuzLaunchInfo.CpuzTabType.Mainboard },
+                new CpuzLaunchInfo { ToolLocation = ToolLocation.BottomLeft, InstanceNumber = 3, TabType = CpuzLaunchInfo.CpuzTabType.Memory }
             };
+            if (chkShowSpdTabs.Checked)
+            {
+                tools.Add(new CpuzLaunchInfo { ToolLocation = ToolLocation.TopLeft, InstanceNumber = 1, TabType = CpuzLaunchInfo.CpuzTabType.SPD, SpdSlot = 1 });
+                tools.Add(new CpuzLaunchInfo { ToolLocation = ToolLocation.TopLeft, InstanceNumber = 2, TabType = CpuzLaunchInfo.CpuzTabType.SPD, SpdSlot = 2 });
+            }
 
             var launchedProcesses = await ToolLauncher.LaunchTools(tools, chkSlowMode.Checked);
             processes.AddRange(launchedProcesses);
@@ -147,9 +155,9 @@ namespace EhwValidationTool
 
             var tools = new List<ToolLaunchInfo>
             {
-                new ToolLaunchInfo { ToolType = ToolType.CpuZ, ToolLocation = ToolLocation.BottomLeft, InstanceNumber = 1, DisplayUserInfoAboveWindow = true, SelectTabIndex = 0 },
-                new ToolLaunchInfo { ToolType = ToolType.CpuZ, ToolLocation = ToolLocation.BottomLeft, InstanceNumber = 2, SelectTabIndex = 1 },
-                new ToolLaunchInfo { ToolType = ToolType.CpuZ, ToolLocation = ToolLocation.BottomLeft, InstanceNumber = 3, SelectTabIndex = 2 },
+                new CpuzLaunchInfo { ToolLocation = ToolLocation.BottomLeft, InstanceNumber = 1, DisplayUserInfoAboveWindow = true, TabType = CpuzLaunchInfo.CpuzTabType.CPU },
+                new CpuzLaunchInfo { ToolLocation = ToolLocation.BottomLeft, InstanceNumber = 2, TabType = CpuzLaunchInfo.CpuzTabType.Mainboard },
+                new CpuzLaunchInfo { ToolLocation = ToolLocation.BottomLeft, InstanceNumber = 3, TabType = CpuzLaunchInfo.CpuzTabType.Memory },
                 new ToolLaunchInfo { ToolType = ToolType.GpuZ, ToolLocation = ToolLocation.TopLeft}
             };
 
@@ -164,10 +172,15 @@ namespace EhwValidationTool
 
             var tools = new List<ToolLaunchInfo>
             {
-                new ToolLaunchInfo { ToolType = ToolType.CpuZ, ToolLocation = ToolLocation.BottomRight, InstanceNumber = 1, DisplayUserInfoAboveWindow = true, SelectTabIndex = 2 },
-                new ToolLaunchInfo { ToolType = ToolType.CpuZ, ToolLocation = ToolLocation.BottomRight, InstanceNumber = 2, SelectTabIndex = 1 },
-                new ToolLaunchInfo { ToolType = ToolType.CpuZ, ToolLocation = ToolLocation.BottomRight, InstanceNumber = 3, SelectTabIndex = 0 }
+                new CpuzLaunchInfo { ToolLocation = ToolLocation.BottomRight, InstanceNumber = 1, DisplayUserInfoAboveWindow = true, TabType = CpuzLaunchInfo.CpuzTabType.Memory },
+                new CpuzLaunchInfo { ToolLocation = ToolLocation.BottomRight, InstanceNumber = 2, TabType = CpuzLaunchInfo.CpuzTabType.Mainboard },
+                new CpuzLaunchInfo { ToolLocation = ToolLocation.BottomRight, InstanceNumber = 3, TabType = CpuzLaunchInfo.CpuzTabType.CPU }
             };
+            if (chkShowSpdTabs.Checked)
+            {
+                tools.Add(new CpuzLaunchInfo { ToolLocation = ToolLocation.TopRight, InstanceNumber = 1, TabType = CpuzLaunchInfo.CpuzTabType.SPD, SpdSlot = 2 });
+                tools.Add(new CpuzLaunchInfo { ToolLocation = ToolLocation.TopRight, InstanceNumber = 2, TabType = CpuzLaunchInfo.CpuzTabType.SPD, SpdSlot = 1 });
+            }
 
             var launchedProcesses = await ToolLauncher.LaunchTools(tools, chkSlowMode.Checked);
             processes.AddRange(launchedProcesses);
@@ -182,9 +195,9 @@ namespace EhwValidationTool
 
             var tools = new List<ToolLaunchInfo>
             {
-                new ToolLaunchInfo { ToolType = ToolType.CpuZ, ToolLocation = ToolLocation.BottomRight, InstanceNumber = 1, DisplayUserInfoAboveWindow = true, SelectTabIndex = 2 },
-                new ToolLaunchInfo { ToolType = ToolType.CpuZ, ToolLocation = ToolLocation.BottomRight, InstanceNumber = 2, SelectTabIndex = 1 },
-                new ToolLaunchInfo { ToolType = ToolType.CpuZ, ToolLocation = ToolLocation.BottomRight, InstanceNumber = 3, SelectTabIndex = 0 },
+                new CpuzLaunchInfo { ToolLocation = ToolLocation.BottomRight, InstanceNumber = 1, DisplayUserInfoAboveWindow = true, TabType = CpuzLaunchInfo.CpuzTabType.Memory },
+                new CpuzLaunchInfo { ToolLocation = ToolLocation.BottomRight, InstanceNumber = 2, TabType = CpuzLaunchInfo.CpuzTabType.Mainboard },
+                new CpuzLaunchInfo { ToolLocation = ToolLocation.BottomRight, InstanceNumber = 3, TabType = CpuzLaunchInfo.CpuzTabType.CPU },
                 new ToolLaunchInfo { ToolType = ToolType.GpuZ, ToolLocation = ToolLocation.TopRight }
             };
 
@@ -206,6 +219,11 @@ namespace EhwValidationTool
         private void chkSlowMode_CheckedChanged(object sender, EventArgs e)
         {
             Settings.Default.EnableSlowMode = chkSlowMode.Checked;
+            Settings.SaveSettings();
+        }
+        private void chkShowSpdTabs_CheckedChanged(object sender, EventArgs e)
+        {
+            Settings.Default.EnableSpdTabs = chkShowSpdTabs.Checked;
             Settings.SaveSettings();
         }
     }

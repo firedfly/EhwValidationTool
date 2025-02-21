@@ -125,6 +125,7 @@
       <DependentUpon>SettingsForm.cs</DependentUpon>
     </Compile>
     <Compile Include="ToolLauncher.cs" />
+    <Compile Include="CpuzLaunchInfo.cs" />
     <Compile Include="ToolLaunchInfo.cs" />
     <Compile Include="ToolLocation.cs" />
     <Compile Include="ToolType.cs" />

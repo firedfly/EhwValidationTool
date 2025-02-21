@@ -31,6 +31,7 @@ namespace EhwValidationTool
         public string HwbotUserName { get; set; }
         public string HwbotTeamName { get; set; }
         public bool EnableSlowMode { get;set; }
+        public bool EnableSpdTabs { get; set; }
 
         public bool Validate()
         {

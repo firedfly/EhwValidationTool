@@ -2,7 +2,7 @@
 {
     public class ToolLaunchInfo
     {
-        public ToolType ToolType { get; set; }
+        public virtual ToolType ToolType { get; set; }
         public ToolLocation ToolLocation { get; set; }
         public int InstanceNumber { get; set; } = 1;
         public bool DisplayUserInfoAboveWindow { get; set; } = false;

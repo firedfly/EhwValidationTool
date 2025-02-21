@@ -41,6 +41,7 @@
             this.lblVersion = new System.Windows.Forms.Label();
             this.chkSlowMode = new System.Windows.Forms.CheckBox();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
+            this.chkShowSpdTabs = new System.Windows.Forms.CheckBox();
             this.SuspendLayout();
             // 
             // btn3dLeft
@@ -145,11 +146,23 @@
             this.toolTip1.SetToolTip(this.chkSlowMode, "Opens tools one at a time.  Useful for single core systems");
             this.chkSlowMode.UseVisualStyleBackColor = true;
             // 
+            // chkShowSpdTabs
+            // 
+            this.chkShowSpdTabs.AutoSize = true;
+            this.chkShowSpdTabs.Location = new System.Drawing.Point(246, 89);
+            this.chkShowSpdTabs.Name = "chkShowSpdTabs";
+            this.chkShowSpdTabs.Size = new System.Drawing.Size(166, 17);
+            this.chkShowSpdTabs.TabIndex = 10;
+            this.chkShowSpdTabs.Text = "Show CPU-Z SPD (Slots 1, 2)";
+            this.toolTip1.SetToolTip(this.chkShowSpdTabs, "Opens tools one at a time.  Useful for single core systems");
+            this.chkShowSpdTabs.UseVisualStyleBackColor = true;
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(446, 246);
+            this.Controls.Add(this.chkShowSpdTabs);
             this.Controls.Add(this.chkSlowMode);
             this.Controls.Add(this.lblVersion);
             this.Controls.Add(this.btnTakeScreenshot);
@@ -181,6 +194,7 @@
         private System.Windows.Forms.Label lblVersion;
         private System.Windows.Forms.CheckBox chkSlowMode;
         private System.Windows.Forms.ToolTip toolTip1;
+        private System.Windows.Forms.CheckBox chkShowSpdTabs;
     }
 }
 

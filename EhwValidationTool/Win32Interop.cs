@@ -153,6 +153,9 @@ namespace EhwValidationTool
 
         public const UInt32 TCM_FIRST = 0x1300;
         public const UInt32 TCM_SETCURFOCUS = (TCM_FIRST + 48);
+        public const UInt32 CB_SETCURSEL = 0x014E;
+        public const Int32 VK_DOWN = 0x28;
+        public const UInt32 WM_KEYDOWN = 0x0100;
 
 
         [DllImport("user32.dll", EntryPoint = "SendMessage", CharSet = CharSet.Auto)]
@@ -172,6 +175,28 @@ namespace EhwValidationTool
             return pszType.ToString();
         }
 
+        public static IntPtr GetFirstComboBoxControl(IntPtr hwnd)
+        {
+            var windows = GetChildWindows(hwnd);
+            foreach (var window in windows)
+            {
+                var classNN = RealGetWindowClassM(window);
+                if (classNN.StartsWith("ComboBox"))
+                {
+                    return window;
+                }
+            }
+
+            return IntPtr.Zero;
+        }
+        public static void SelectComboBoxValueByIndex(IntPtr comboboxHandle, int selectedIndex)
+        {
+            SendMessage(comboboxHandle, CB_SETCURSEL, 0, null);
+            for (int i = 0; i < selectedIndex; i++)
+                SendMessage(comboboxHandle, WM_KEYDOWN, VK_DOWN, null);
+        }
+
+
         public static IntPtr GetFirstTabControl(IntPtr hwnd)
         {
             var windows = GetChildWindows(hwnd);
@@ -186,6 +211,24 @@ namespace EhwValidationTool
             }
 
             return tabList.OrderBy(c => c.depthFromRootWindow).Select(c => c.hwnd).First();
+        }
+
+        // assumes hwnd is a SysTabControl
+        public static IntPtr GetTabHwndByIndex(IntPtr hwnd, int tabIndex)
+        {
+            var windows = GetChildWindows(hwnd);
+
+            foreach (var window in windows)
+            {
+                var classNN = RealGetWindowClassM(window);
+                if (string.Equals(classNN, "#32770"))
+                    tabIndex--;
+
+                if (tabIndex < 0)
+                    return window;
+            }
+
+            return IntPtr.Zero;
         }
 
         public static void SelectTabByIndex(IntPtr tabControlHandle, int tabIndex)
