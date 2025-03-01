@@ -153,9 +153,10 @@ namespace EhwValidationTool
 
         public const UInt32 TCM_FIRST = 0x1300;
         public const UInt32 TCM_SETCURFOCUS = (TCM_FIRST + 48);
-        public const UInt32 CB_SETCURSEL = 0x014E;
-        public const Int32 VK_DOWN = 0x28;
-        public const UInt32 WM_KEYDOWN = 0x0100;
+        public const UInt32 CB_SETCURSEL = 0x014E; 
+        public const UInt32 WM_COMMAND = 0x0111;       // Windows message for commands
+        public const UInt32 CBN_SELCHANGE = 1;         // Notification for combobox selection change
+
 
 
         [DllImport("user32.dll", EntryPoint = "SendMessage", CharSet = CharSet.Auto)]
@@ -189,11 +190,12 @@ namespace EhwValidationTool
 
             return IntPtr.Zero;
         }
+
+
         public static void SelectComboBoxValueByIndex(IntPtr comboboxHandle, int selectedIndex)
         {
-            SendMessage(comboboxHandle, CB_SETCURSEL, 0, null);
-            for (int i = 0; i < selectedIndex; i++)
-                SendMessage(comboboxHandle, WM_KEYDOWN, VK_DOWN, null);
+            SendMessage(comboboxHandle, CB_SETCURSEL, selectedIndex, null);
+            SendMessage(GetParent(comboboxHandle), (int)WM_COMMAND, MAKEWPARAM(GetDlgCtrlID(comboboxHandle), (int)CBN_SELCHANGE), (int)comboboxHandle);
         }
 
 
@@ -235,6 +237,11 @@ namespace EhwValidationTool
         {
             SendMessage(tabControlHandle, TCM_SETCURFOCUS, tabIndex, null);
         }
+        public static int MAKEWPARAM(int low, int high)
+        {
+            return (low & 0xFFFF) | ((high & 0xFFFF) << 16);
+        }
+
 
 
         public const int WM_NCLBUTTONDOWN = 0xA1;
@@ -244,5 +251,8 @@ namespace EhwValidationTool
         public static extern int SendMessage(IntPtr hWnd, int Msg, int wParam, int lParam);
         [System.Runtime.InteropServices.DllImport("user32.dll")]
         public static extern bool ReleaseCapture();
+
+        [DllImport("user32.dll", SetLastError = true)]
+        public static extern int GetDlgCtrlID(IntPtr hWnd);
     }
 }
