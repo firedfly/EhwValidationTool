@@ -35,8 +35,10 @@ namespace EhwValidationTool
             this.chkSlowMode.Checked = Settings.Default.EnableSlowMode;
             this.chkSlowMode.CheckedChanged += chkSlowMode_CheckedChanged;
 
-            this.chkShowSpdTabs.Checked = Settings.Default.EnableSpdTabs;
-            this.chkShowSpdTabs.CheckedChanged += chkShowSpdTabs_CheckedChanged;
+            this.chkShowSpdTabsSlot12.Checked = Settings.Default.EnableSpdTabsSlot1Slot2;
+            this.chkShowSpdTabsSlot24.Checked = Settings.Default.EnableSpdTabsSlot2Slot4;
+            this.chkShowSpdTabsSlot12.CheckedChanged += chkShowSpdTabs_CheckedChanged;
+            this.chkShowSpdTabsSlot24.CheckedChanged += chkShowSpdTabs_CheckedChanged;
         }
 
         public void CloseTools()
@@ -125,6 +127,29 @@ namespace EhwValidationTool
             }
         }
 
+        private List<ToolLaunchInfo> getSpdToToolLaunchInfo(ToolLocation toolLocation)
+        {
+            var tools = new List<ToolLaunchInfo>();
+
+            if (chkShowSpdTabsSlot12.Checked || chkShowSpdTabsSlot24.Checked)
+            {
+                int firstSlot = chkShowSpdTabsSlot12.Checked ? 1 : 2;
+                int secondSlot = chkShowSpdTabsSlot12.Checked ? 2 : 4;
+
+                if(toolLocation == ToolLocation.TopRight || toolLocation == ToolLocation.BottomRight)
+                {
+                    var tmp = firstSlot;
+                    firstSlot = secondSlot;
+                    secondSlot = tmp;
+                }
+
+                tools.Add(new CpuzLaunchInfo { ToolLocation = toolLocation, InstanceNumber = 1, TabType = CpuzLaunchInfo.CpuzTabType.SPD, SpdSlot = firstSlot });
+                tools.Add(new CpuzLaunchInfo { ToolLocation = toolLocation, InstanceNumber = 2, TabType = CpuzLaunchInfo.CpuzTabType.SPD, SpdSlot = secondSlot });
+            }
+
+            return tools;
+        }
+
         private async void btn2dLeft_Click(object sender, EventArgs e)
         {
             if (!ensureToolExists(ToolType.CpuZ))
@@ -136,11 +161,7 @@ namespace EhwValidationTool
                 new CpuzLaunchInfo { ToolLocation = ToolLocation.BottomLeft, InstanceNumber = 2, TabType = CpuzLaunchInfo.CpuzTabType.Mainboard },
                 new CpuzLaunchInfo { ToolLocation = ToolLocation.BottomLeft, InstanceNumber = 3, TabType = CpuzLaunchInfo.CpuzTabType.Memory }
             };
-            if (chkShowSpdTabs.Checked)
-            {
-                tools.Add(new CpuzLaunchInfo { ToolLocation = ToolLocation.TopLeft, InstanceNumber = 1, TabType = CpuzLaunchInfo.CpuzTabType.SPD, SpdSlot = 1 });
-                tools.Add(new CpuzLaunchInfo { ToolLocation = ToolLocation.TopLeft, InstanceNumber = 2, TabType = CpuzLaunchInfo.CpuzTabType.SPD, SpdSlot = 2 });
-            }
+            tools.AddRange(getSpdToToolLaunchInfo(ToolLocation.TopLeft));
 
             var launchedProcesses = await ToolLauncher.LaunchTools(tools, chkSlowMode.Checked);
             processes.AddRange(launchedProcesses);
@@ -176,11 +197,7 @@ namespace EhwValidationTool
                 new CpuzLaunchInfo { ToolLocation = ToolLocation.BottomRight, InstanceNumber = 2, TabType = CpuzLaunchInfo.CpuzTabType.Mainboard },
                 new CpuzLaunchInfo { ToolLocation = ToolLocation.BottomRight, InstanceNumber = 3, TabType = CpuzLaunchInfo.CpuzTabType.CPU }
             };
-            if (chkShowSpdTabs.Checked)
-            {
-                tools.Add(new CpuzLaunchInfo { ToolLocation = ToolLocation.TopRight, InstanceNumber = 1, TabType = CpuzLaunchInfo.CpuzTabType.SPD, SpdSlot = 2 });
-                tools.Add(new CpuzLaunchInfo { ToolLocation = ToolLocation.TopRight, InstanceNumber = 2, TabType = CpuzLaunchInfo.CpuzTabType.SPD, SpdSlot = 1 });
-            }
+            tools.AddRange(getSpdToToolLaunchInfo(ToolLocation.TopRight));
 
             var launchedProcesses = await ToolLauncher.LaunchTools(tools, chkSlowMode.Checked);
             processes.AddRange(launchedProcesses);
@@ -223,7 +240,8 @@ namespace EhwValidationTool
         }
         private void chkShowSpdTabs_CheckedChanged(object sender, EventArgs e)
         {
-            Settings.Default.EnableSpdTabs = chkShowSpdTabs.Checked;
+            Settings.Default.EnableSpdTabsSlot1Slot2 = chkShowSpdTabsSlot12.Checked;
+            Settings.Default.EnableSpdTabsSlot2Slot4 = chkShowSpdTabsSlot24.Checked;
             Settings.SaveSettings();
         }
     }
