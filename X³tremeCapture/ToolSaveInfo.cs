@@ -1,11 +1,7 @@
 ﻿using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
 using System.Drawing;
-using System.Linq;
-using System.Text;
 
-namespace EhwValidationTool
+namespace XtremeCapture
 {
     [JsonConverter(typeof(ToolSaveInfoConverter))]
     public class ToolSaveInfo

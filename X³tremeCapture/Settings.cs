@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
 
-namespace EhwValidationTool
+namespace XtremeCapture
 {
     public class Settings
     {

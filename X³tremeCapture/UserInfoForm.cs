@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Windows.Forms;
 
-namespace EhwValidationTool
+namespace XtremeCapture
 {
     public partial class UserInfoForm : Form
     {

@@ -1,4 +1,4 @@
-﻿namespace EhwValidationTool
+﻿namespace XtremeCapture
 {
     partial class SettingsForm
     {

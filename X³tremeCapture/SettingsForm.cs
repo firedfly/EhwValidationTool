@@ -3,7 +3,7 @@ using System.Drawing;
 using System.IO;
 using System.Windows.Forms;
 
-namespace EhwValidationTool
+namespace XtremeCapture
 {
     public partial class SettingsForm : Form
     {
