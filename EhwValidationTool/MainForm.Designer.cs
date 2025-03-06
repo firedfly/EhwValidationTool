@@ -43,6 +43,8 @@
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.chkShowSpdTabsSlot12 = new System.Windows.Forms.CheckBox();
             this.chkShowSpdTabsSlot24 = new System.Windows.Forms.CheckBox();
+            this.btnSaveLayout = new System.Windows.Forms.Button();
+            this.btnLaunchSavedLayout = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // btn3dLeft
@@ -108,7 +110,7 @@
             // btnCloseTools
             // 
             this.btnCloseTools.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnCloseTools.Location = new System.Drawing.Point(246, 211);
+            this.btnCloseTools.Location = new System.Drawing.Point(246, 276);
             this.btnCloseTools.Name = "btnCloseTools";
             this.btnCloseTools.Size = new System.Drawing.Size(180, 23);
             this.btnCloseTools.TabIndex = 6;
@@ -119,7 +121,7 @@
             // btnTakeScreenshot
             // 
             this.btnTakeScreenshot.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.btnTakeScreenshot.Location = new System.Drawing.Point(15, 211);
+            this.btnTakeScreenshot.Location = new System.Drawing.Point(15, 276);
             this.btnTakeScreenshot.Name = "btnTakeScreenshot";
             this.btnTakeScreenshot.Size = new System.Drawing.Size(180, 23);
             this.btnTakeScreenshot.TabIndex = 7;
@@ -171,11 +173,33 @@
             this.chkShowSpdTabsSlot24.UseVisualStyleBackColor = true;
             this.chkShowSpdTabsSlot24.CheckedChanged += new System.EventHandler(this.chkShowSpdTabs_CheckedChanged);
             // 
+            // btnSaveLayout
+            // 
+            this.btnSaveLayout.Location = new System.Drawing.Point(246, 221);
+            this.btnSaveLayout.Name = "btnSaveLayout";
+            this.btnSaveLayout.Size = new System.Drawing.Size(180, 23);
+            this.btnSaveLayout.TabIndex = 13;
+            this.btnSaveLayout.Text = "Save Current Layout";
+            this.btnSaveLayout.UseVisualStyleBackColor = true;
+            this.btnSaveLayout.Click += new System.EventHandler(this.btnSaveLayout_Click);
+            // 
+            // btnLaunchSavedLayout
+            // 
+            this.btnLaunchSavedLayout.Location = new System.Drawing.Point(15, 221);
+            this.btnLaunchSavedLayout.Name = "btnLaunchSavedLayout";
+            this.btnLaunchSavedLayout.Size = new System.Drawing.Size(180, 23);
+            this.btnLaunchSavedLayout.TabIndex = 12;
+            this.btnLaunchSavedLayout.Text = "Launch Saved Layout";
+            this.btnLaunchSavedLayout.UseVisualStyleBackColor = true;
+            this.btnLaunchSavedLayout.Click += new System.EventHandler(this.btnLaunchSavedLayout_Click);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(446, 246);
+            this.ClientSize = new System.Drawing.Size(446, 311);
+            this.Controls.Add(this.btnSaveLayout);
+            this.Controls.Add(this.btnLaunchSavedLayout);
             this.Controls.Add(this.chkShowSpdTabsSlot24);
             this.Controls.Add(this.chkShowSpdTabsSlot12);
             this.Controls.Add(this.chkSlowMode);
@@ -211,6 +235,8 @@
         private System.Windows.Forms.ToolTip toolTip1;
         private System.Windows.Forms.CheckBox chkShowSpdTabsSlot12;
         private System.Windows.Forms.CheckBox chkShowSpdTabsSlot24;
+        private System.Windows.Forms.Button btnSaveLayout;
+        private System.Windows.Forms.Button btnLaunchSavedLayout;
     }
 }
 

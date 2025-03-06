@@ -109,6 +109,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CpuzSaveInfo.cs" />
     <Compile Include="MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -128,7 +129,9 @@
     <Compile Include="CpuzLaunchInfo.cs" />
     <Compile Include="ToolLaunchInfo.cs" />
     <Compile Include="ToolLocation.cs" />
+    <Compile Include="ToolSaveInfo.cs" />
     <Compile Include="ToolType.cs" />
+    <Compile Include="ToolSaveInfoConverter.cs" />
     <Compile Include="UserInfoForm.cs">
       <SubType>Form</SubType>
     </Compile>

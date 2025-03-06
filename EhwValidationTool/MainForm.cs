@@ -21,8 +21,6 @@ namespace EhwValidationTool
         public static MainForm Instance;
         private readonly UserInfoForm userInfoForm = new UserInfoForm();
 
-        List<Process> processes = new List<Process>();
-
         public MainForm()
         {
             InitializeComponent();
@@ -39,20 +37,15 @@ namespace EhwValidationTool
             this.chkShowSpdTabsSlot24.Checked = Settings.Default.EnableSpdTabsSlot2Slot4;
             this.chkShowSpdTabsSlot12.CheckedChanged += chkShowSpdTabs_CheckedChanged;
             this.chkShowSpdTabsSlot24.CheckedChanged += chkShowSpdTabs_CheckedChanged;
+
+            updateSavedLayoutControls();
         }
 
         public void CloseTools()
         {
             userInfoForm.Hide();
-
-            processes.ForEach(x =>
-            {
-                if (!x.HasExited)
-                {
-                    x.Kill();
-                }
-            });
-            processes.Clear();
+            ToolLauncher.CloseTools();
+            updateSavedLayoutControls();
         }
 
         private async Task TakeScreenshot()
@@ -150,6 +143,68 @@ namespace EhwValidationTool
             return tools;
         }
 
+        private void updateSavedLayoutControls()
+        {
+            if (Settings.Default.SavedLayout != null && Settings.Default.SavedLayout.Count > 0)
+            {
+                btnLaunchSavedLayout.Enabled = true;
+            }
+            else
+            {
+                btnLaunchSavedLayout.Enabled = false;
+            }
+
+            btnSaveLayout.Enabled = ToolLauncher.HasOpenTools;
+        }
+
+        private async Task launchSavedLayout()
+        {
+            if (Settings.Default.SavedLayout == null || Settings.Default.SavedLayout.Count == 0)
+                return;
+
+            var openTools = await ToolLauncher.LaunchToolsFromSavedLayout(Settings.Default.SavedLayout, chkSlowMode.Checked);
+
+            if(Settings.Default.UserInfoSavedLayout != null)
+            {
+                userInfoForm.Location = Settings.Default.UserInfoSavedLayout.Location;
+                userInfoForm.Size = Settings.Default.UserInfoSavedLayout.Size;
+                userInfoForm.Show();
+            }
+
+            bool userInfoHandled = false;
+            foreach(var tool in Settings.Default.SavedLayout.OrderByDescending(x=>x.ZOrder))
+            {
+                if(!userInfoHandled && tool.ZOrder < Settings.Default.UserInfoZOrder)
+                {
+                    Win32Interop.BringWindowToFront(userInfoForm.Handle);
+                    userInfoHandled = true;
+                }
+
+                var openTool = getOpenToolFromSavedLayout(tool, openTools);
+                Win32Interop.BringWindowToFront(ToolLauncher.GetMainWindowFromProcessId(openTool, openTool.Process.Id));
+            }
+
+            if (!userInfoHandled)
+            {
+                Win32Interop.BringWindowToFront(userInfoForm.Handle);
+            }
+
+            updateSavedLayoutControls();
+        }
+
+        private ToolLaunchInfo getOpenToolFromSavedLayout(ToolSaveInfo toolSaveInfo, List<ToolLaunchInfo> openTools)
+        {
+            if(toolSaveInfo.ToolType == ToolType.CpuZ)
+            {
+                var cpuzSaveInfo = (CpuzSaveInfo)toolSaveInfo;
+                return openTools.Where(x => x is CpuzLaunchInfo).Select(x => (CpuzLaunchInfo)x).FirstOrDefault(x => x.TabType == cpuzSaveInfo.TabType && x.SpdSlot == cpuzSaveInfo.SpdSlot);
+            }
+            else
+            {
+                return openTools.FirstOrDefault(x=>x.ToolType == toolSaveInfo.ToolType);
+            }
+        }
+
         private async void btn2dLeft_Click(object sender, EventArgs e)
         {
             if (!ensureToolExists(ToolType.CpuZ))
@@ -157,14 +212,14 @@ namespace EhwValidationTool
 
             var tools = new List<ToolLaunchInfo>
             {
-                new CpuzLaunchInfo { ToolLocation = ToolLocation.BottomLeft, InstanceNumber = 1, DisplayUserInfoAboveWindow = true, TabType = CpuzLaunchInfo.CpuzTabType.CPU },
+                new CpuzLaunchInfo { ToolLocation = ToolLocation.BottomLeft, InstanceNumber = 1, TabType = CpuzLaunchInfo.CpuzTabType.CPU },
                 new CpuzLaunchInfo { ToolLocation = ToolLocation.BottomLeft, InstanceNumber = 2, TabType = CpuzLaunchInfo.CpuzTabType.Mainboard },
-                new CpuzLaunchInfo { ToolLocation = ToolLocation.BottomLeft, InstanceNumber = 3, TabType = CpuzLaunchInfo.CpuzTabType.Memory }
+                new CpuzLaunchInfo { ToolLocation = ToolLocation.BottomLeft, InstanceNumber = 3, DisplayUserInfoAboveWindow = true, TabType = CpuzLaunchInfo.CpuzTabType.Memory }
             };
             tools.AddRange(getSpdToToolLaunchInfo(ToolLocation.TopLeft));
 
-            var launchedProcesses = await ToolLauncher.LaunchTools(tools, chkSlowMode.Checked);
-            processes.AddRange(launchedProcesses);
+            await ToolLauncher.LaunchTools(tools, chkSlowMode.Checked);
+            updateSavedLayoutControls();
         }
 
         private async void btn3dLeft_Click(object sender, EventArgs e)
@@ -182,8 +237,8 @@ namespace EhwValidationTool
                 new ToolLaunchInfo { ToolType = ToolType.GpuZ, ToolLocation = ToolLocation.TopLeft}
             };
 
-            var launchedProcesses = await ToolLauncher.LaunchTools(tools, chkSlowMode.Checked);
-            processes.AddRange(launchedProcesses);
+            await ToolLauncher.LaunchTools(tools, chkSlowMode.Checked);
+            updateSavedLayoutControls();
         }
 
         private async void btn2dRight_Click(object sender, EventArgs e)
@@ -199,8 +254,8 @@ namespace EhwValidationTool
             };
             tools.AddRange(getSpdToToolLaunchInfo(ToolLocation.TopRight));
 
-            var launchedProcesses = await ToolLauncher.LaunchTools(tools, chkSlowMode.Checked);
-            processes.AddRange(launchedProcesses);
+            await ToolLauncher.LaunchTools(tools, chkSlowMode.Checked);
+            updateSavedLayoutControls();
         }
 
         private async void btn3dRight_Click(object sender, EventArgs e)
@@ -218,8 +273,8 @@ namespace EhwValidationTool
                 new ToolLaunchInfo { ToolType = ToolType.GpuZ, ToolLocation = ToolLocation.TopRight }
             };
 
-            var launchedProcesses = await ToolLauncher.LaunchTools(tools, chkSlowMode.Checked);
-            processes.AddRange(launchedProcesses);
+            await ToolLauncher.LaunchTools(tools, chkSlowMode.Checked);
+            updateSavedLayoutControls();
         }
 
         private void btnCloseTools_Click(object sender, EventArgs e)
@@ -243,6 +298,24 @@ namespace EhwValidationTool
             Settings.Default.EnableSpdTabsSlot1Slot2 = chkShowSpdTabsSlot12.Checked;
             Settings.Default.EnableSpdTabsSlot2Slot4 = chkShowSpdTabsSlot24.Checked;
             Settings.SaveSettings();
+        }
+
+        private void btnSaveLayout_Click(object sender, EventArgs e)
+        {
+            if (!ToolLauncher.HasOpenTools)
+                return;
+
+
+            Settings.Default.SavedLayout = ToolLauncher.GetSaveInfoForTools();
+            Settings.Default.UserInfoSavedLayout = new Rectangle(userInfoForm.Location, userInfoForm.Size);
+            Settings.Default.UserInfoZOrder = Win32Interop.GetWindowZOrder(userInfoForm.Handle);
+            Settings.SaveSettings();
+            updateSavedLayoutControls();
+        }
+
+        private void btnLaunchSavedLayout_Click(object sender, EventArgs e)
+        {
+            _ = launchSavedLayout();
         }
     }
 }

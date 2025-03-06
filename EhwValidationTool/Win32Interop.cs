@@ -153,10 +153,17 @@ namespace EhwValidationTool
 
         public const UInt32 TCM_FIRST = 0x1300;
         public const UInt32 TCM_SETCURFOCUS = (TCM_FIRST + 48);
-        public const UInt32 CB_SETCURSEL = 0x014E; 
+        public const UInt32 CB_SETCURSEL = 0x014E;
         public const UInt32 WM_COMMAND = 0x0111;       // Windows message for commands
         public const UInt32 CBN_SELCHANGE = 1;         // Notification for combobox selection change
+        private const uint GW_HWNDNEXT = 2;            // Get the next window in Z-order
 
+
+        [DllImport("user32.dll", SetLastError = true)]
+        private static extern IntPtr GetTopWindow(IntPtr hWnd);
+
+        [DllImport("user32.dll", SetLastError = true)]
+        private static extern IntPtr GetWindow(IntPtr hWnd, uint uCmd);
 
 
         [DllImport("user32.dll", EntryPoint = "SendMessage", CharSet = CharSet.Auto)]
@@ -191,6 +198,31 @@ namespace EhwValidationTool
             return IntPtr.Zero;
         }
 
+        public static int GetWindowZOrder(IntPtr hwndTarget)
+        {
+            if (hwndTarget == IntPtr.Zero)
+            {
+                return -1; // Invalid handle
+            }
+
+            // Start with the topmost window
+            IntPtr hwnd = GetTopWindow(IntPtr.Zero);
+            int zOrder = 0;
+
+            // Traverse the Z-order
+            while (hwnd != IntPtr.Zero)
+            {
+                if (hwnd == hwndTarget)
+                {
+                    return zOrder; // Found the target window
+                }
+
+                hwnd = GetWindow(hwnd, GW_HWNDNEXT); // Get the next window in Z-order
+                zOrder++;
+            }
+
+            return -1; // Target window not found
+        }
 
         public static void SelectComboBoxValueByIndex(IntPtr comboboxHandle, int selectedIndex)
         {
@@ -254,5 +286,19 @@ namespace EhwValidationTool
 
         [DllImport("user32.dll", SetLastError = true)]
         public static extern int GetDlgCtrlID(IntPtr hWnd);
+
+        public static readonly IntPtr HWND_TOP = new IntPtr(0);        // Places the window at the top of the Z-order
+        public const uint SWP_NOSIZE = 0x0001;       // Retains the current size
+        public const uint SWP_NOMOVE = 0x0002;       // Retains the current position;
+        public const uint SWP_NOACTIVATE = 0x0010;
+
+            [DllImport("user32.dll", SetLastError = true)]
+        public static extern bool SetWindowPos(IntPtr hWnd, IntPtr hWndInsertAfter, int X, int Y, int cx, int cy, uint uFlags);
+
+
+        public static void BringWindowToFront(IntPtr hWnd)
+        {
+            var a = SetWindowPos(hWnd, HWND_TOP, 0, 0, 0, 0, SWP_NOMOVE | SWP_NOSIZE | SWP_NOACTIVATE);
+        }
     }
 }
