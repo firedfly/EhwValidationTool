@@ -9,8 +9,8 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("ExtremeHW's Validation Tool")]
-[assembly: AssemblyCopyright("Copyright © Stephen Gordon 2023")]
+[assembly: AssemblyProduct("X³treme Capture")]
+[assembly: AssemblyCopyright("Copyright © Stephen Gordon 2025")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 

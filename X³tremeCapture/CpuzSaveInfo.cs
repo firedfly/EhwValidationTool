@@ -1,6 +1,6 @@
-﻿using static EhwValidationTool.CpuzLaunchInfo;
+﻿using static XtremeCapture.CpuzLaunchInfo;
 
-namespace EhwValidationTool
+namespace XtremeCapture
 {
     public class CpuzSaveInfo : ToolSaveInfo
     {

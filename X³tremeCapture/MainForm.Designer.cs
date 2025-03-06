@@ -1,4 +1,4 @@
-﻿namespace EhwValidationTool
+﻿namespace XtremeCapture
 {
     partial class MainForm
     {
@@ -214,7 +214,7 @@
             this.Controls.Add(this.btn3dLeft);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "MainForm";
-            this.Text = "EHW Validation Tool";
+            this.Text = "X³treme Capture";
             this.ResumeLayout(false);
             this.PerformLayout();
 

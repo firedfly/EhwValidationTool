@@ -1,7 +1,7 @@
 ﻿using System.Diagnostics;
 using System.Drawing;
 
-namespace EhwValidationTool
+namespace XtremeCapture
 {
     public class ToolLaunchInfo
     {

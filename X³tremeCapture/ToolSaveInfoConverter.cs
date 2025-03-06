@@ -1,9 +1,8 @@
 ﻿using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System;
-using System.Windows.Forms;
 
-namespace EhwValidationTool
+namespace XtremeCapture
 {
     public class ToolSaveInfoConverter : JsonConverter
     {
