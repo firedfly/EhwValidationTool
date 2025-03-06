@@ -153,6 +153,17 @@ namespace EhwValidationTool
 
         public const UInt32 TCM_FIRST = 0x1300;
         public const UInt32 TCM_SETCURFOCUS = (TCM_FIRST + 48);
+        public const UInt32 CB_SETCURSEL = 0x014E;
+        public const UInt32 WM_COMMAND = 0x0111;       // Windows message for commands
+        public const UInt32 CBN_SELCHANGE = 1;         // Notification for combobox selection change
+        private const uint GW_HWNDNEXT = 2;            // Get the next window in Z-order
+
+
+        [DllImport("user32.dll", SetLastError = true)]
+        private static extern IntPtr GetTopWindow(IntPtr hWnd);
+
+        [DllImport("user32.dll", SetLastError = true)]
+        private static extern IntPtr GetWindow(IntPtr hWnd, uint uCmd);
 
 
         [DllImport("user32.dll", EntryPoint = "SendMessage", CharSet = CharSet.Auto)]
@@ -172,6 +183,54 @@ namespace EhwValidationTool
             return pszType.ToString();
         }
 
+        public static IntPtr GetFirstComboBoxControl(IntPtr hwnd)
+        {
+            var windows = GetChildWindows(hwnd);
+            foreach (var window in windows)
+            {
+                var classNN = RealGetWindowClassM(window);
+                if (classNN.StartsWith("ComboBox"))
+                {
+                    return window;
+                }
+            }
+
+            return IntPtr.Zero;
+        }
+
+        public static int GetWindowZOrder(IntPtr hwndTarget)
+        {
+            if (hwndTarget == IntPtr.Zero)
+            {
+                return -1; // Invalid handle
+            }
+
+            // Start with the topmost window
+            IntPtr hwnd = GetTopWindow(IntPtr.Zero);
+            int zOrder = 0;
+
+            // Traverse the Z-order
+            while (hwnd != IntPtr.Zero)
+            {
+                if (hwnd == hwndTarget)
+                {
+                    return zOrder; // Found the target window
+                }
+
+                hwnd = GetWindow(hwnd, GW_HWNDNEXT); // Get the next window in Z-order
+                zOrder++;
+            }
+
+            return -1; // Target window not found
+        }
+
+        public static void SelectComboBoxValueByIndex(IntPtr comboboxHandle, int selectedIndex)
+        {
+            SendMessage(comboboxHandle, CB_SETCURSEL, selectedIndex, null);
+            SendMessage(GetParent(comboboxHandle), (int)WM_COMMAND, MAKEWPARAM(GetDlgCtrlID(comboboxHandle), (int)CBN_SELCHANGE), (int)comboboxHandle);
+        }
+
+
         public static IntPtr GetFirstTabControl(IntPtr hwnd)
         {
             var windows = GetChildWindows(hwnd);
@@ -188,10 +247,33 @@ namespace EhwValidationTool
             return tabList.OrderBy(c => c.depthFromRootWindow).Select(c => c.hwnd).First();
         }
 
+        // assumes hwnd is a SysTabControl
+        public static IntPtr GetTabHwndByIndex(IntPtr hwnd, int tabIndex)
+        {
+            var windows = GetChildWindows(hwnd);
+
+            foreach (var window in windows)
+            {
+                var classNN = RealGetWindowClassM(window);
+                if (string.Equals(classNN, "#32770"))
+                    tabIndex--;
+
+                if (tabIndex < 0)
+                    return window;
+            }
+
+            return IntPtr.Zero;
+        }
+
         public static void SelectTabByIndex(IntPtr tabControlHandle, int tabIndex)
         {
             SendMessage(tabControlHandle, TCM_SETCURFOCUS, tabIndex, null);
         }
+        public static int MAKEWPARAM(int low, int high)
+        {
+            return (low & 0xFFFF) | ((high & 0xFFFF) << 16);
+        }
+
 
 
         public const int WM_NCLBUTTONDOWN = 0xA1;
@@ -201,5 +283,22 @@ namespace EhwValidationTool
         public static extern int SendMessage(IntPtr hWnd, int Msg, int wParam, int lParam);
         [System.Runtime.InteropServices.DllImport("user32.dll")]
         public static extern bool ReleaseCapture();
+
+        [DllImport("user32.dll", SetLastError = true)]
+        public static extern int GetDlgCtrlID(IntPtr hWnd);
+
+        public static readonly IntPtr HWND_TOP = new IntPtr(0);        // Places the window at the top of the Z-order
+        public const uint SWP_NOSIZE = 0x0001;       // Retains the current size
+        public const uint SWP_NOMOVE = 0x0002;       // Retains the current position;
+        public const uint SWP_NOACTIVATE = 0x0010;
+
+            [DllImport("user32.dll", SetLastError = true)]
+        public static extern bool SetWindowPos(IntPtr hWnd, IntPtr hWndInsertAfter, int X, int Y, int cx, int cy, uint uFlags);
+
+
+        public static void BringWindowToFront(IntPtr hWnd)
+        {
+            var a = SetWindowPos(hWnd, HWND_TOP, 0, 0, 0, 0, SWP_NOMOVE | SWP_NOSIZE | SWP_NOACTIVATE);
+        }
     }
 }

@@ -41,11 +41,15 @@
             this.lblVersion = new System.Windows.Forms.Label();
             this.chkSlowMode = new System.Windows.Forms.CheckBox();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
+            this.chkShowSpdTabsSlot12 = new System.Windows.Forms.CheckBox();
+            this.chkShowSpdTabsSlot24 = new System.Windows.Forms.CheckBox();
+            this.btnSaveLayout = new System.Windows.Forms.Button();
+            this.btnLaunchSavedLayout = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // btn3dLeft
             // 
-            this.btn3dLeft.Location = new System.Drawing.Point(15, 141);
+            this.btn3dLeft.Location = new System.Drawing.Point(15, 165);
             this.btn3dLeft.Name = "btn3dLeft";
             this.btn3dLeft.Size = new System.Drawing.Size(180, 23);
             this.btn3dLeft.TabIndex = 0;
@@ -56,7 +60,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(12, 57);
+            this.label1.Location = new System.Drawing.Point(12, 51);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(313, 13);
             this.label1.TabIndex = 1;
@@ -64,7 +68,7 @@
             // 
             // btn2dLeft
             // 
-            this.btn2dLeft.Location = new System.Drawing.Point(15, 112);
+            this.btn2dLeft.Location = new System.Drawing.Point(15, 136);
             this.btn2dLeft.Name = "btn2dLeft";
             this.btn2dLeft.Size = new System.Drawing.Size(180, 23);
             this.btn2dLeft.TabIndex = 2;
@@ -85,7 +89,7 @@
             // 
             // btn2dRight
             // 
-            this.btn2dRight.Location = new System.Drawing.Point(246, 112);
+            this.btn2dRight.Location = new System.Drawing.Point(246, 136);
             this.btn2dRight.Name = "btn2dRight";
             this.btn2dRight.Size = new System.Drawing.Size(180, 23);
             this.btn2dRight.TabIndex = 5;
@@ -95,7 +99,7 @@
             // 
             // btn3dRight
             // 
-            this.btn3dRight.Location = new System.Drawing.Point(246, 141);
+            this.btn3dRight.Location = new System.Drawing.Point(246, 165);
             this.btn3dRight.Name = "btn3dRight";
             this.btn3dRight.Size = new System.Drawing.Size(180, 23);
             this.btn3dRight.TabIndex = 4;
@@ -106,7 +110,7 @@
             // btnCloseTools
             // 
             this.btnCloseTools.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnCloseTools.Location = new System.Drawing.Point(246, 211);
+            this.btnCloseTools.Location = new System.Drawing.Point(246, 276);
             this.btnCloseTools.Name = "btnCloseTools";
             this.btnCloseTools.Size = new System.Drawing.Size(180, 23);
             this.btnCloseTools.TabIndex = 6;
@@ -117,7 +121,7 @@
             // btnTakeScreenshot
             // 
             this.btnTakeScreenshot.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.btnTakeScreenshot.Location = new System.Drawing.Point(15, 211);
+            this.btnTakeScreenshot.Location = new System.Drawing.Point(15, 276);
             this.btnTakeScreenshot.Name = "btnTakeScreenshot";
             this.btnTakeScreenshot.Size = new System.Drawing.Size(180, 23);
             this.btnTakeScreenshot.TabIndex = 7;
@@ -137,7 +141,7 @@
             // chkSlowMode
             // 
             this.chkSlowMode.AutoSize = true;
-            this.chkSlowMode.Location = new System.Drawing.Point(15, 89);
+            this.chkSlowMode.Location = new System.Drawing.Point(15, 86);
             this.chkSlowMode.Name = "chkSlowMode";
             this.chkSlowMode.Size = new System.Drawing.Size(79, 17);
             this.chkSlowMode.TabIndex = 9;
@@ -145,11 +149,59 @@
             this.toolTip1.SetToolTip(this.chkSlowMode, "Opens tools one at a time.  Useful for single core systems");
             this.chkSlowMode.UseVisualStyleBackColor = true;
             // 
+            // chkShowSpdTabsSlot12
+            // 
+            this.chkShowSpdTabsSlot12.AutoSize = true;
+            this.chkShowSpdTabsSlot12.Location = new System.Drawing.Point(246, 86);
+            this.chkShowSpdTabsSlot12.Name = "chkShowSpdTabsSlot12";
+            this.chkShowSpdTabsSlot12.Size = new System.Drawing.Size(166, 17);
+            this.chkShowSpdTabsSlot12.TabIndex = 10;
+            this.chkShowSpdTabsSlot12.Text = "Show CPU-Z SPD (Slots 1, 2)";
+            this.toolTip1.SetToolTip(this.chkShowSpdTabsSlot12, "Opens tools one at a time.  Useful for single core systems");
+            this.chkShowSpdTabsSlot12.UseVisualStyleBackColor = true;
+            this.chkShowSpdTabsSlot12.CheckedChanged += new System.EventHandler(this.chkShowSpdTabs_CheckedChanged);
+            // 
+            // chkShowSpdTabsSlot24
+            // 
+            this.chkShowSpdTabsSlot24.AutoSize = true;
+            this.chkShowSpdTabsSlot24.Location = new System.Drawing.Point(246, 108);
+            this.chkShowSpdTabsSlot24.Name = "chkShowSpdTabsSlot24";
+            this.chkShowSpdTabsSlot24.Size = new System.Drawing.Size(166, 17);
+            this.chkShowSpdTabsSlot24.TabIndex = 11;
+            this.chkShowSpdTabsSlot24.Text = "Show CPU-Z SPD (Slots 2, 4)";
+            this.toolTip1.SetToolTip(this.chkShowSpdTabsSlot24, "Opens tools one at a time.  Useful for single core systems");
+            this.chkShowSpdTabsSlot24.UseVisualStyleBackColor = true;
+            this.chkShowSpdTabsSlot24.CheckedChanged += new System.EventHandler(this.chkShowSpdTabs_CheckedChanged);
+            // 
+            // btnSaveLayout
+            // 
+            this.btnSaveLayout.Location = new System.Drawing.Point(246, 221);
+            this.btnSaveLayout.Name = "btnSaveLayout";
+            this.btnSaveLayout.Size = new System.Drawing.Size(180, 23);
+            this.btnSaveLayout.TabIndex = 13;
+            this.btnSaveLayout.Text = "Save Current Layout";
+            this.btnSaveLayout.UseVisualStyleBackColor = true;
+            this.btnSaveLayout.Click += new System.EventHandler(this.btnSaveLayout_Click);
+            // 
+            // btnLaunchSavedLayout
+            // 
+            this.btnLaunchSavedLayout.Location = new System.Drawing.Point(15, 221);
+            this.btnLaunchSavedLayout.Name = "btnLaunchSavedLayout";
+            this.btnLaunchSavedLayout.Size = new System.Drawing.Size(180, 23);
+            this.btnLaunchSavedLayout.TabIndex = 12;
+            this.btnLaunchSavedLayout.Text = "Launch Saved Layout";
+            this.btnLaunchSavedLayout.UseVisualStyleBackColor = true;
+            this.btnLaunchSavedLayout.Click += new System.EventHandler(this.btnLaunchSavedLayout_Click);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(446, 246);
+            this.ClientSize = new System.Drawing.Size(446, 311);
+            this.Controls.Add(this.btnSaveLayout);
+            this.Controls.Add(this.btnLaunchSavedLayout);
+            this.Controls.Add(this.chkShowSpdTabsSlot24);
+            this.Controls.Add(this.chkShowSpdTabsSlot12);
             this.Controls.Add(this.chkSlowMode);
             this.Controls.Add(this.lblVersion);
             this.Controls.Add(this.btnTakeScreenshot);
@@ -181,6 +233,10 @@
         private System.Windows.Forms.Label lblVersion;
         private System.Windows.Forms.CheckBox chkSlowMode;
         private System.Windows.Forms.ToolTip toolTip1;
+        private System.Windows.Forms.CheckBox chkShowSpdTabsSlot12;
+        private System.Windows.Forms.CheckBox chkShowSpdTabsSlot24;
+        private System.Windows.Forms.Button btnSaveLayout;
+        private System.Windows.Forms.Button btnLaunchSavedLayout;
     }
 }
 

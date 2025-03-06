@@ -1,4 +1,6 @@
 ﻿using Newtonsoft.Json;
+using System.Collections.Generic;
+using System.Drawing;
 using System.IO;
 
 namespace EhwValidationTool
@@ -31,6 +33,12 @@ namespace EhwValidationTool
         public string HwbotUserName { get; set; }
         public string HwbotTeamName { get; set; }
         public bool EnableSlowMode { get;set; }
+        public bool EnableSpdTabsSlot1Slot2 { get; set; }
+        public bool EnableSpdTabsSlot2Slot4 { get; set; }
+
+        public int UserInfoZOrder { get; set; }
+        public Rectangle UserInfoSavedLayout { get; set; }
+        public List<ToolSaveInfo> SavedLayout { get; set; }
 
         public bool Validate()
         {
